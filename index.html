@@ -663,6 +663,7 @@ let roundResults = [];
 let gameFinished = false;
 let replaysLeft = 0;
 let isAutoPlaying = false;
+let hasHeardThisRound = false;
 let vsSeed = 0;
 let generatedSeed = 0;
 
@@ -811,15 +812,10 @@ function setupGameUI(){
   // Disable if finished
   setGameEnabled(!gameFinished);
 
-  // Auto-play target sound for current round
-  if(!gameFinished){
-    replaysLeft=0;
-    updateListenUI();
-    setTimeout(()=>autoPlayRound(),500);
-  } else {
-    replaysLeft=0;
-    updateListenUI();
-  }
+  // Reset listen state for current round
+  replaysLeft=0;
+  hasHeardThisRound=false;
+  updateListenUI();
 }
 
 function renderRoundBar(){
@@ -895,35 +891,10 @@ document.addEventListener('touchmove',e=>{if(dragging)sliderFromEvent(e)},{passi
 document.addEventListener('mouseup',()=>dragging=false);
 document.addEventListener('touchend',()=>dragging=false);
 
-// -- Listen system: auto-play 2x on round start, 1 manual replay --
+// -- Listen system: user-tap triggered, plays 2x then 1 replay --
 const REPLAY_LIMIT = 1;
 
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-
-async function autoPlayRound(){
-  if(gameFinished||isAutoPlaying)return;
-  isAutoPlaying=true;
-  const r=gameRounds[currentRound];
-  const btn=document.getElementById('playTarget');
-  const status=document.getElementById('listenStatus');
-  const hint=document.getElementById('listenHint');
-
-  btn.disabled=true;
-  status.textContent='Listen carefully...';
-  hint.textContent='Playing 2 times';
-
-  for(let rep=0;rep<2;rep++){
-    btn.classList.add('playing');
-    playSynth(r.instIdx,midiToFreq(r.midi),1.2);
-    await sleep(1400);
-    btn.classList.remove('playing');
-    if(rep<1) await sleep(600);
-  }
-
-  replaysLeft=REPLAY_LIMIT;
-  isAutoPlaying=false;
-  updateListenUI();
-}
 
 function updateListenUI(){
   const btn=document.getElementById('playTarget');
@@ -933,9 +904,13 @@ function updateListenUI(){
     btn.disabled=true;status.textContent='Game over';hint.textContent='';return;
   }
   if(isAutoPlaying){
-    btn.disabled=true;return;
+    btn.disabled=true;status.textContent='Listen carefully...';hint.textContent='Playing 2 times';return;
   }
-  if(replaysLeft>0){
+  if(!hasHeardThisRound){
+    btn.disabled=false;
+    status.textContent='Tap to listen';
+    hint.textContent='Plays 2x, then 1 replay';
+  } else if(replaysLeft>0){
     btn.disabled=false;
     status.textContent=`${replaysLeft} replay left`;
     hint.textContent='Tap to hear it once more';
@@ -946,14 +921,34 @@ function updateListenUI(){
   }
 }
 
-document.getElementById('playTarget').addEventListener('click',()=>{
-  if(gameFinished||isAutoPlaying||replaysLeft<=0)return;
-  replaysLeft--;
+document.getElementById('playTarget').addEventListener('click',async()=>{
+  if(gameFinished||isAutoPlaying)return;
+  // Ensure AudioContext is active (Safari requires user gesture)
+  getCtx();
   const r=gameRounds[currentRound];
   const btn=document.getElementById('playTarget');
-  btn.classList.add('playing');
-  playSynth(r.instIdx,midiToFreq(r.midi),1.2);
-  setTimeout(()=>{btn.classList.remove('playing');updateListenUI();},1200);
+
+  if(!hasHeardThisRound){
+    // First listen: play 2 times
+    isAutoPlaying=true;
+    updateListenUI();
+    for(let rep=0;rep<2;rep++){
+      btn.classList.add('playing');
+      playSynth(r.instIdx,midiToFreq(r.midi),1.2);
+      await sleep(1400);
+      btn.classList.remove('playing');
+      if(rep<1) await sleep(600);
+    }
+    isAutoPlaying=false;
+    hasHeardThisRound=true;
+    replaysLeft=REPLAY_LIMIT;
+    updateListenUI();
+  } else if(replaysLeft>0){
+    replaysLeft--;
+    btn.classList.add('playing');
+    playSynth(r.instIdx,midiToFreq(r.midi),1.2);
+    setTimeout(()=>{btn.classList.remove('playing');updateListenUI();},1200);
+  }
 });
 
 // -- Preview --
@@ -988,10 +983,8 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
     setTimeout(()=>showResult(totalScore),500);
   } else {
     selectedInst=-1;sliderMidi=(MIDI_MIN+MIDI_MAX)/2;
-    replaysLeft=0;
+    replaysLeft=0;hasHeardThisRound=false;
     if(currentMode==='daily')saveDaily();
-    // Auto-play next round after brief pause
-    setTimeout(()=>autoPlayRound(),800);
   }
   renderRoundBar();renderInstGrid();updateSliderUI();updateSubmitState();updateListenUI();
 
