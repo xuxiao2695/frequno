@@ -29,58 +29,24 @@ body{
   display:flex;flex-direction:column;align-items:center;
   overflow-x:hidden;-webkit-tap-highlight-color:transparent;
 }
-header{
-  width:100%;max-width:520px;padding:14px 16px;
-  display:flex;justify-content:space-between;align-items:center;
-  border-bottom:1px solid var(--border);
-}
-.logo{
-  font-size:1.4rem;font-weight:800;cursor:pointer;
-  background:linear-gradient(135deg,#f97316,#eab308,#22c55e,#06b6d4,#8b5cf6,#ec4899);
-  background-size:200% 200%;animation:gShift 6s ease infinite;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
+header{width:100%;max-width:520px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.logo{font-size:1.4rem;font-weight:800;cursor:pointer;background:linear-gradient(135deg,#f97316,#eab308,#22c55e,#06b6d4,#8b5cf6,#ec4899);background-size:200% 200%;animation:gShift 6s ease infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 @keyframes gShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .hdr-right{display:flex;gap:8px;align-items:center}
-.icon-btn{
-  background:var(--surface);border:1px solid var(--border);color:var(--text-dim);
-  width:36px;height:36px;border-radius:8px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:.95rem;
-  transition:all .2s;
-}
+.icon-btn{background:var(--surface);border:1px solid var(--border);color:var(--text-dim);width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .2s}
 .icon-btn:hover{background:var(--surface2);color:var(--text)}
-.player-tag{
-  background:var(--surface2);border:1px solid var(--border);border-radius:999px;
-  padding:4px 12px 4px 8px;display:flex;align-items:center;gap:6px;
-  font-size:.75rem;font-weight:600;cursor:pointer;
-}
-.player-avatar{
-  width:22px;height:22px;border-radius:50%;background:var(--accent);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.65rem;font-weight:800;color:white;
-}
-.page{
-  width:100%;max-width:520px;padding:16px;
-  display:none;flex-direction:column;gap:14px;
-  animation:fadeIn .3s ease;
-}
+.player-tag{background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 12px 4px 8px;display:flex;align-items:center;gap:6px;font-size:.75rem;font-weight:600;cursor:pointer}
+.player-avatar{width:22px;height:22px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:white}
+.page{width:100%;max-width:520px;padding:16px;display:none;flex-direction:column;gap:14px;animation:fadeIn .3s ease}
 .page.active{display:flex}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* --- Home --- */
 .home-hero{text-align:center;padding:16px 0 8px}
 .home-hero h1{font-size:1.6rem;font-weight:800;margin-bottom:4px}
 .home-hero p{color:var(--text-dim);font-size:.85rem}
-.mode-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
-}
+.mode-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
 .mode-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.mode-card .mc-badge{
-  position:absolute;top:12px;right:12px;background:var(--accent);color:white;
-  font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:999px;
-  text-transform:uppercase;letter-spacing:.5px;
-}
+.mode-card .mc-badge{position:absolute;top:12px;right:12px;background:var(--accent);color:white;font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px}
 .mode-card h3{font-size:1rem;margin-bottom:3px}
 .mode-card p{color:var(--text-dim);font-size:.76rem;line-height:1.4}
 .mode-card .mc-icon{font-size:1.6rem;margin-bottom:6px;display:block}
@@ -89,71 +55,42 @@ header{
 .mode-card.vs{border-left:3px solid var(--orange)}
 .mode-card.lb{border-left:3px solid var(--warning)}
 
-/* --- Shared --- */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
 .card-label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;text-align:center}
 .back-row{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--text-dim);font-size:.82rem;font-weight:600}
 .back-row:hover{color:var(--text)}
 .round-bar{display:flex;justify-content:center;gap:8px;margin-bottom:4px}
-.r-dot{
-  width:30px;height:30px;border-radius:50%;
-  background:var(--surface2);border:2px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.6rem;font-weight:700;color:var(--text-dim);transition:all .3s;
-}
+.r-dot{width:30px;height:30px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--text-dim);transition:all .3s}
 .r-dot.active{border-color:var(--accent);color:var(--accent);box-shadow:0 0 10px var(--accent-glow)}
 .r-dot.s-perfect{border-color:var(--success);background:rgba(34,197,94,.12);color:var(--success)}
 .r-dot.s-great{border-color:var(--warning);background:rgba(234,179,8,.1);color:var(--warning)}
 .r-dot.s-ok{border-color:var(--orange);background:rgba(249,115,22,.1);color:var(--orange)}
 .r-dot.s-miss{border-color:var(--error);background:rgba(239,68,68,.1);color:var(--error)}
 
-/* --- Listen / Play buttons --- */
-.play-btn{
-  background:var(--accent);color:white;border:none;
-  width:52px;height:52px;border-radius:50%;font-size:1.1rem;
-  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;
-}
+.play-btn{background:var(--accent);color:white;border:none;width:52px;height:52px;border-radius:50%;font-size:1.1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .play-btn:hover{transform:scale(1.08);box-shadow:0 4px 20px var(--accent-glow)}
 .play-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .play-btn.playing{animation:pulsB .6s ease infinite}
 @keyframes pulsB{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 10px transparent}}
 
-/* --- 3-Slider Panel --- */
+/* Timbre badge */
+.timbre-badge{display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:.7rem;font-weight:600;color:var(--accent);margin-top:6px}
+
+/* Sliders */
 .slider-panel{display:flex;flex-direction:column;gap:16px}
 .param-row{display:flex;flex-direction:column;gap:6px}
 .param-header{display:flex;justify-content:space-between;align-items:baseline}
 .param-name{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
 .param-value{font-size:.85rem;font-weight:700;font-variant-numeric:tabular-nums}
-.param-track{
-  position:relative;width:100%;height:44px;border-radius:12px;
-  overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none;
-  touch-action:none;
-}
+.param-track{position:relative;width:100%;height:44px;border-radius:12px;overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none}
 .param-gradient{position:absolute;inset:0;border-radius:12px}
-.param-thumb{
-  position:absolute;top:50%;width:6px;height:34px;background:white;
-  border-radius:3px;transform:translate(-50%,-50%);
-  box-shadow:0 0 8px rgba(0,0,0,.5),0 0 2px rgba(255,255,255,.3);
-  pointer-events:none;transition:left .05s;
-}
-/* Pitch gradient */
+.param-thumb{position:absolute;top:50%;width:6px;height:34px;background:white;border-radius:3px;transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(0,0,0,.5),0 0 2px rgba(255,255,255,.3);pointer-events:none;transition:left .05s}
 .grad-pitch{background:linear-gradient(90deg,#1e40af,#3b82f6,#06b6d4,#22c55e,#eab308,#f97316,#ef4444,#ec4899)}
-/* Brightness gradient: dark/muffled to bright */
 .grad-bright{background:linear-gradient(90deg,#1a1a2e,#334155,#64748b,#94a3b8,#e2e8f0,#f8fafc)}
-/* Space gradient: dry to wet/spacious */
-.grad-space{background:linear-gradient(90deg,#0f172a,#1e3a5f,#2563eb,#7c3aed,#a78bfa,#c4b5fd)}
-
 .param-labels{display:flex;justify-content:space-between;font-size:.55rem;color:var(--text-dim);padding:0 2px}
 
-/* Sounding indicator */
-.sound-indicator{
-  display:flex;align-items:center;justify-content:center;gap:3px;
-  height:18px;margin-top:2px;
-}
-.sound-bar{
-  width:3px;border-radius:2px;background:var(--accent);
-  animation:soundWave .5s ease-in-out infinite alternate;
-}
+.sound-indicator{display:flex;align-items:center;justify-content:center;gap:3px;height:18px;margin-bottom:4px}
+.sound-bar{width:3px;border-radius:2px;background:var(--accent);animation:soundWave .5s ease-in-out infinite alternate}
 .sound-bar:nth-child(1){height:6px;animation-delay:0s}
 .sound-bar:nth-child(2){height:12px;animation-delay:.1s}
 .sound-bar:nth-child(3){height:8px;animation-delay:.2s}
@@ -162,51 +99,54 @@ header{
 @keyframes soundWave{to{height:4px}}
 .sound-indicator.hidden .sound-bar{animation:none;height:0}
 
-/* --- Feedback strip --- */
-.fb-strip{
-  display:flex;justify-content:center;gap:6px;
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius);padding:10px 14px;
-}
-.fb-chip{
-  width:42px;height:42px;border-radius:10px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  cursor:pointer;transition:all .2s;position:relative;
-  font-weight:800;color:white;
-}
+/* Feedback strip */
+.fb-strip{display:flex;justify-content:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px}
+.fb-chip{width:42px;height:42px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-weight:800;color:white}
 .fb-chip .chip-round{font-size:.55rem;opacity:.7}
-.fb-chip .chip-score{font-size:.95rem}
+.fb-chip .chip-score{font-size:.85rem}
 .fb-chip:hover{transform:scale(1.1)}
 .fb-chip.tier-perfect{background:var(--success)}
 .fb-chip.tier-great{background:var(--warning);color:var(--bg)}
 .fb-chip.tier-ok{background:var(--orange)}
 .fb-chip.tier-miss{background:var(--error)}
 .fb-chip.empty{background:var(--surface2);border:2px dashed var(--border);color:var(--text-dim);font-size:.65rem}
-.fb-tooltip{
-  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
-  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
-  padding:8px 12px;white-space:nowrap;font-size:.7rem;font-weight:500;
-  color:var(--text);z-index:10;pointer-events:none;opacity:0;transition:opacity .2s;
-}
-.fb-tooltip::after{
-  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
-  border:5px solid transparent;border-top-color:var(--border);
-}
-.fb-chip.show-tip .fb-tooltip{opacity:1}
 
-/* --- Actions --- */
+/* Round result (A/B compare) modal */
+.ab-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:90;opacity:0;pointer-events:none;transition:opacity .3s}
+.ab-overlay.active{opacity:1;pointer-events:all}
+.ab-modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;max-width:380px;width:90%;text-align:center;transform:translateY(20px);transition:transform .3s}
+.ab-overlay.active .ab-modal{transform:translateY(0)}
+.ab-title{font-size:1.1rem;font-weight:800;margin-bottom:2px}
+.ab-sub{font-size:.75rem;color:var(--text-dim);margin-bottom:14px}
+.ab-players{display:flex;gap:10px;margin-bottom:14px}
+.ab-side{flex:1;background:var(--surface2);border-radius:12px;padding:12px 10px;text-align:center}
+.ab-side-label{font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.ab-play-btn{width:42px;height:42px;border-radius:50%;border:none;font-size:1rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center;margin-bottom:6px}
+.ab-play-btn:hover{transform:scale(1.1)}
+.ab-play-btn.guess{background:var(--accent);color:white}
+.ab-play-btn.target{background:var(--success);color:white}
+.ab-values{font-size:.7rem;color:var(--text-dim);line-height:1.5}
+.ab-values span{color:var(--text);font-weight:600}
+
+.ab-scores{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;text-align:left}
+.ab-score-row{display:flex;align-items:center;gap:8px}
+.ab-score-label{width:70px;font-size:.72rem;font-weight:600;flex-shrink:0}
+.ab-bar-wrap{flex:1;height:8px;background:var(--surface3);border-radius:4px;overflow:hidden}
+.ab-bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.ab-score-pts{width:40px;font-size:.78rem;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+
+.ab-total{font-size:1.4rem;font-weight:800;margin-bottom:12px}
+
+/* Actions */
 .bottom-actions{display:flex;gap:8px}
-.btn{
-  flex:1;padding:13px;border-radius:999px;border:none;
-  font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;
-}
+.btn{flex:1;padding:13px;border-radius:999px;border:none;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
 .btn-sec{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
 .btn-sec:hover{background:var(--surface3)}
 .btn-pri{background:var(--accent);color:white}
 .btn-pri:hover{box-shadow:0 4px 20px var(--accent-glow)}
 .btn:disabled{opacity:.35;cursor:not-allowed}
 
-/* --- VS --- */
+/* VS */
 .vs-status{text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
 .vs-label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
 .vs-players{display:flex;justify-content:center;gap:24px;align-items:center}
@@ -217,15 +157,11 @@ header{
 .code-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
 .code-box .code-val{font-size:1.8rem;font-weight:800;letter-spacing:4px;color:var(--accent);margin:8px 0}
 .code-box .code-hint{font-size:.7rem;color:var(--text-dim)}
-.code-input{
-  background:var(--surface2);border:2px solid var(--border);border-radius:10px;
-  color:var(--text);font-size:1.4rem;font-weight:700;text-align:center;
-  letter-spacing:4px;padding:14px;width:100%;outline:none;transition:border-color .2s;
-}
+.code-input{background:var(--surface2);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:1.4rem;font-weight:700;text-align:center;letter-spacing:4px;padding:14px;width:100%;outline:none;transition:border-color .2s}
 .code-input:focus{border-color:var(--accent)}
 .code-input::placeholder{color:var(--text-dim);letter-spacing:2px;font-size:1rem}
 
-/* --- Leaderboard --- */
+/* Leaderboard */
 .lb-tabs{display:flex;gap:4px;background:var(--surface);border-radius:10px;padding:4px}
 .lb-tab{flex:1;padding:10px;border-radius:8px;border:none;background:transparent;color:var(--text-dim);font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s}
 .lb-tab.active{background:var(--accent);color:white}
@@ -241,18 +177,10 @@ header{
 .lb-name{font-size:.82rem;font-weight:600}
 .lb-pts{font-size:1.05rem;font-weight:800;color:var(--accent)}
 
-/* --- Modals --- */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;z-index:100;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
+/* Modals */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .3s}
 .modal-overlay.active{opacity:1;pointer-events:all}
-.modal{
-  background:var(--surface);border:1px solid var(--border);border-radius:18px;
-  padding:26px;max-width:400px;width:90%;text-align:center;
-  transform:translateY(20px);transition:transform .3s;
-}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px;max-width:400px;width:90%;text-align:center;transform:translateY(20px);transition:transform .3s}
 .modal-overlay.active .modal{transform:translateY(0)}
 .modal h2{font-size:1.3rem;margin-bottom:4px}
 .modal .sub{color:var(--text-dim);font-size:.82rem;margin-bottom:16px}
@@ -281,13 +209,7 @@ header{
 .legend-item{display:flex;align-items:center;gap:6px;font-size:.75rem}
 .legend-dot{width:16px;height:16px;border-radius:5px}
 
-/* Countdown overlay */
-.countdown-overlay{
-  position:fixed;inset:0;z-index:150;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(10,10,20,.85);backdrop-filter:blur(8px);
-  opacity:0;pointer-events:none;transition:opacity .2s;
-}
+.countdown-overlay{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;background:rgba(10,10,20,.85);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .2s}
 .countdown-overlay.active{opacity:1;pointer-events:all}
 .cd-text{font-size:4rem;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:4px;animation:cdPop .5s ease}
 @keyframes cdPop{0%{transform:scale(.5);opacity:0}50%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
@@ -309,43 +231,30 @@ header{
   </div>
 </header>
 
-<!-- ==================== HOME ==================== -->
 <div class="page active" id="page-home">
-  <div class="home-hero">
-    <h1>FreqUno</h1>
-    <p>Match the sound. Trust your ears.</p>
-  </div>
+  <div class="home-hero"><h1>FreqUno</h1><p>Match the sound. Trust your ears.</p></div>
   <div class="mode-card daily" onclick="startDaily()">
-    <span class="mc-badge">New Today</span>
-    <span class="mc-icon">&#127925;</span>
-    <h3>Daily Challenge</h3>
-    <p>5 mystery sounds. Dial in pitch, brightness, and space to match. Same puzzle for everyone.</p>
+    <span class="mc-badge">New Today</span><span class="mc-icon">&#127925;</span>
+    <h3>Daily Challenge</h3><p>5 sounds. Dial in pitch and brightness to match. Same puzzle for everyone.</p>
   </div>
   <div class="mode-card practice" onclick="startPractice()">
-    <span class="mc-icon">&#127911;</span>
-    <h3>Practice</h3>
-    <p>Unlimited random rounds. Train your ears without pressure.</p>
+    <span class="mc-icon">&#127911;</span><h3>Practice</h3><p>Unlimited rounds. Train your ears.</p>
   </div>
   <div class="mode-card vs" onclick="navigate('vs-lobby')">
-    <span class="mc-icon">&#9876;</span>
-    <h3>Challenge a Friend</h3>
-    <p>Share a code, play the same sounds, compare accuracy.</p>
+    <span class="mc-icon">&#9876;</span><h3>Challenge a Friend</h3><p>Share a code, same sounds, compare accuracy.</p>
   </div>
   <div class="mode-card lb" onclick="navigate('leaderboard')">
-    <span class="mc-icon">&#127942;</span>
-    <h3>Leaderboard</h3>
-    <p>See how you stack up today and all time.</p>
+    <span class="mc-icon">&#127942;</span><h3>Leaderboard</h3><p>See how you stack up.</p>
   </div>
 </div>
 
-<!-- ==================== GAME ==================== -->
+<!-- GAME -->
 <div class="page" id="page-game">
   <div class="back-row" onclick="confirmExit()">&#8592; Back</div>
   <div style="text-align:center">
     <span style="font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px" id="gameModeLabel">Daily Challenge</span>
     <span style="font-size:.68rem;color:var(--text-dim)" id="gameDateLabel"></span>
   </div>
-
   <div class="vs-status" id="vsStatusBar" style="display:none">
     <div class="vs-label">Challenge Match</div>
     <div class="vs-players">
@@ -354,13 +263,10 @@ header{
       <div class="vs-player"><div class="vp-name" id="vsP2Name">Friend</div><div class="vp-score" id="vsP2Score">--</div></div>
     </div>
   </div>
-
   <div style="text-align:center">
     <div class="round-bar" id="roundBar"></div>
     <span style="font-size:.7rem;color:var(--text-dim)">Round <span id="roundNum">1</span> / 5</span>
   </div>
-
-  <!-- Listen -->
   <div class="card">
     <div class="card-label">Target Sound</div>
     <div style="display:flex;justify-content:center;align-items:center;gap:14px">
@@ -370,9 +276,8 @@ header{
         <div style="font-size:.66rem;color:var(--text-dim)" id="listenHint">Plays 2x, then 1 replay</div>
       </div>
     </div>
+    <div style="text-align:center"><span class="timbre-badge" id="timbreBadge">Timbre: --</span></div>
   </div>
-
-  <!-- 3 Sliders -->
   <div class="card" id="sliderCard">
     <div class="card-label">Dial it in &mdash; drag to hear live</div>
     <div class="sound-indicator hidden" id="soundIndicator">
@@ -401,128 +306,84 @@ header{
         </div>
         <div class="param-labels"><span>Dark / Muffled</span><span>Bright / Sharp</span></div>
       </div>
-      <div class="param-row">
-        <div class="param-header">
-          <span class="param-name" style="color:#a78bfa">Space</span>
-          <span class="param-value" id="spaceVal">20%</span>
-        </div>
-        <div class="param-track" id="trackSpace">
-          <div class="param-gradient grad-space"></div>
-          <div class="param-thumb" id="thumbSpace"></div>
-        </div>
-        <div class="param-labels"><span>Dry / Close</span><span>Wet / Spacious</span></div>
-      </div>
     </div>
   </div>
-
   <div class="bottom-actions">
     <button class="btn btn-pri" id="submitBtn" disabled>Submit Guess</button>
   </div>
-
   <div class="fb-strip" id="fbStrip"></div>
 </div>
 
-<!-- ==================== VS LOBBY ==================== -->
+<!-- VS LOBBY -->
 <div class="page" id="page-vs-lobby">
   <div class="back-row" onclick="navigate('home')">&#8592; Back</div>
-  <div style="text-align:center;padding:8px 0">
-    <h2 style="font-size:1.2rem">Challenge a Friend</h2>
-    <p style="color:var(--text-dim);font-size:.82rem;margin-top:4px">Create a challenge or enter a friend's code</p>
-  </div>
-  <div class="card" style="text-align:center">
-    <div class="card-label">Create New Challenge</div>
-    <button class="btn btn-pri" style="max-width:220px;margin:0 auto" onclick="createChallenge()">Generate Code</button>
-  </div>
-  <div class="card" id="generatedCodeCard" style="display:none">
-    <div class="card-label">Your Challenge Code</div>
-    <div class="code-box">
-      <div class="code-val" id="generatedCode">------</div>
-      <div class="code-hint">Share this code with your friend</div>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:12px">
-      <button class="btn btn-sec" onclick="copyCode()">Copy Code</button>
-      <button class="btn btn-pri" onclick="playChallenge(generatedSeed)">Play Now</button>
-    </div>
-  </div>
-  <div class="card" style="text-align:center">
-    <div class="card-label">Join a Challenge</div>
-    <input class="code-input" id="joinCodeInput" placeholder="Enter code" maxlength="6">
-    <button class="btn btn-pri" style="margin-top:12px;max-width:220px;margin-left:auto;margin-right:auto" onclick="joinChallenge()">Join</button>
-  </div>
+  <div style="text-align:center;padding:8px 0"><h2 style="font-size:1.2rem">Challenge a Friend</h2><p style="color:var(--text-dim);font-size:.82rem;margin-top:4px">Create or join a challenge</p></div>
+  <div class="card" style="text-align:center"><div class="card-label">Create New</div><button class="btn btn-pri" style="max-width:220px;margin:0 auto" onclick="createChallenge()">Generate Code</button></div>
+  <div class="card" id="generatedCodeCard" style="display:none"><div class="card-label">Your Code</div><div class="code-box"><div class="code-val" id="generatedCode">------</div><div class="code-hint">Share with your friend</div></div><div style="display:flex;gap:8px;margin-top:12px"><button class="btn btn-sec" onclick="copyCode()">Copy</button><button class="btn btn-pri" onclick="playChallenge(generatedSeed)">Play</button></div></div>
+  <div class="card" style="text-align:center"><div class="card-label">Join</div><input class="code-input" id="joinCodeInput" placeholder="Enter code" maxlength="6"><button class="btn btn-pri" style="margin-top:12px;max-width:220px;margin-left:auto;margin-right:auto" onclick="joinChallenge()">Join</button></div>
 </div>
 
-<!-- ==================== LEADERBOARD ==================== -->
+<!-- LEADERBOARD -->
 <div class="page" id="page-leaderboard">
   <div class="back-row" onclick="navigate('home')">&#8592; Back</div>
   <div style="text-align:center;padding:4px 0"><h2 style="font-size:1.2rem">Leaderboard</h2></div>
-  <div class="lb-tabs">
-    <button class="lb-tab active" onclick="switchLbTab('today',this)">Today</button>
-    <button class="lb-tab" onclick="switchLbTab('week',this)">This Week</button>
-    <button class="lb-tab" onclick="switchLbTab('alltime',this)">All Time</button>
-  </div>
+  <div class="lb-tabs"><button class="lb-tab active" onclick="switchLbTab('today',this)">Today</button><button class="lb-tab" onclick="switchLbTab('week',this)">This Week</button><button class="lb-tab" onclick="switchLbTab('alltime',this)">All Time</button></div>
   <div class="lb-list" id="lbList"></div>
 </div>
 
-<!-- ==================== MODALS ==================== -->
+<!-- RESULT MODAL -->
 <div class="modal-overlay" id="resultModal">
   <div class="modal">
-    <h2 id="resTitle">Your Score</h2>
-    <div class="sub" id="resSub"></div>
-    <div class="score-ring">
-      <svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="50"/><circle class="fg" id="ringFg" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/></svg>
-      <div class="sc-txt"><div class="sc-val" id="scoreFinal">0</div><div class="sc-max">/ 100</div></div>
-    </div>
-    <div class="stats-row" id="resultStats">
-      <div class="stat-box"><div class="stat-val" id="stPlayed">0</div><div class="stat-lbl">Played</div></div>
-      <div class="stat-box"><div class="stat-val" id="stAvg">0</div><div class="stat-lbl">Avg</div></div>
-      <div class="stat-box"><div class="stat-val" id="stBest">0</div><div class="stat-lbl">Best</div></div>
-    </div>
-    <div id="vsResultBlock" style="display:none;margin-bottom:14px">
-      <div class="vs-status" style="border:none;padding:8px">
-        <div class="vs-players">
-          <div class="vs-player"><div class="vp-name" id="vrP1">You</div><div class="vp-score" id="vrS1">0</div></div>
-          <div class="vs-divider">vs</div>
-          <div class="vs-player"><div class="vp-name" id="vrP2">Friend</div><div class="vp-score" id="vrS2">--</div></div>
-        </div>
-      </div>
-    </div>
+    <h2 id="resTitle">Your Score</h2><div class="sub" id="resSub"></div>
+    <div class="score-ring"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="50"/><circle class="fg" id="ringFg" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"/></svg><div class="sc-txt"><div class="sc-val" id="scoreFinal">0</div><div class="sc-max">/ 100</div></div></div>
+    <div class="stats-row" id="resultStats"><div class="stat-box"><div class="stat-val" id="stPlayed">0</div><div class="stat-lbl">Played</div></div><div class="stat-box"><div class="stat-val" id="stAvg">0</div><div class="stat-lbl">Avg</div></div><div class="stat-box"><div class="stat-val" id="stBest">0</div><div class="stat-lbl">Best</div></div></div>
+    <div id="vsResultBlock" style="display:none;margin-bottom:14px"><div class="vs-status" style="border:none;padding:8px"><div class="vs-players"><div class="vs-player"><div class="vp-name" id="vrP1">You</div><div class="vp-score" id="vrS1">0</div></div><div class="vs-divider">vs</div><div class="vs-player"><div class="vp-name" id="vrP2">Friend</div><div class="vp-score" id="vrS2">--</div></div></div></div></div>
     <button class="share-btn" id="shareBtn">Share Result</button>
     <div class="countdown-line" id="countdown"></div>
     <button class="btn btn-sec" style="margin-top:10px;width:100%" onclick="closeModal('resultModal');navigate('home')">Home</button>
   </div>
 </div>
 
-<div class="modal-overlay" id="nameModal">
-  <div class="modal">
-    <h2>Your Name</h2>
-    <div class="sub">This appears on the leaderboard</div>
-    <input class="name-input" id="nameInput" placeholder="Enter your name" maxlength="16">
-    <button class="btn btn-pri" style="width:100%" onclick="saveName()">Save</button>
+<!-- A/B COMPARE MODAL -->
+<div class="ab-overlay" id="abModal">
+  <div class="ab-modal">
+    <div class="ab-title" id="abTitle">Round 1</div>
+    <div class="ab-sub" id="abTimbre">Timbre: Warm Pad</div>
+    <div class="ab-players">
+      <div class="ab-side">
+        <div class="ab-side-label">Your Guess</div>
+        <button class="ab-play-btn guess" id="abPlayGuess">&#9654;</button>
+        <div class="ab-values" id="abGuessVals"></div>
+      </div>
+      <div class="ab-side">
+        <div class="ab-side-label">Target</div>
+        <button class="ab-play-btn target" id="abPlayTarget">&#9654;</button>
+        <div class="ab-values" id="abTargetVals"></div>
+      </div>
+    </div>
+    <div class="ab-scores" id="abScores"></div>
+    <div class="ab-total" id="abTotal"></div>
+    <button class="btn btn-pri" style="width:100%" id="abNextBtn">Next Round</button>
   </div>
 </div>
 
+<!-- OTHER MODALS -->
+<div class="modal-overlay" id="nameModal"><div class="modal"><h2>Your Name</h2><div class="sub">Appears on leaderboard</div><input class="name-input" id="nameInput" placeholder="Enter your name" maxlength="16"><button class="btn btn-pri" style="width:100%" onclick="saveName()">Save</button></div></div>
+
 <div class="modal-overlay" id="helpModal">
-  <div class="modal">
-    <h2>How to Play</h2>
+  <div class="modal"><h2>How to Play</h2>
     <div class="help-body">
-      <h3>Goal</h3>
-      <p>Listen to a mystery sound, then recreate it using three sliders.</p>
-      <h3>The Three Dimensions</h3>
-      <p><strong>Pitch</strong> -- How high or low the note is (like hue in color).</p>
-      <p><strong>Brightness</strong> -- How muffled or sharp the tone is (like saturation).</p>
-      <p><strong>Space</strong> -- How dry/close or wet/spacious it sounds (like value/brightness).</p>
-      <h3>How It Works</h3>
-      <p>1. Tap play to hear the target sound (2x, then 1 replay).</p>
-      <p>2. Drag any slider to hear your version <strong>live</strong> -- it plays while you drag!</p>
-      <p>3. Match your memory of the target. Submit when ready.</p>
-      <h3>Scoring (20 per round, 100 max)</h3>
-      <p>Each dimension scores 0-7 based on accuracy. Closer = more points.</p>
-      <div class="legend">
-        <div class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>17-20</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--warning)"></span>12-16</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>7-11</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--error)"></span>0-6</div>
-      </div>
+      <h3>Goal</h3><p>Listen to a mystery sound, then recreate it with two sliders.</p>
+      <h3>Dimensions</h3>
+      <p><strong>Pitch</strong> -- How high or low (like hue in color).</p>
+      <p><strong>Brightness</strong> -- How muffled or sharp (like saturation).</p>
+      <p>Each round uses a random timbre (shown but not guessed).</p>
+      <h3>How</h3>
+      <p>1. Tap play to hear the target (2x, then 1 replay).</p>
+      <p>2. Drag sliders to hear your version <strong>live</strong>.</p>
+      <p>3. Submit. Review A/B comparison, then next round.</p>
+      <h3>Scoring</h3>
+      <p>Each dimension: 0.00-10.00. Total per round: max 20. Game max: 100.</p>
     </div>
     <button class="btn btn-pri" style="width:100%;margin-top:14px" onclick="closeModal('helpModal')">Got it</button>
   </div>
@@ -533,21 +394,31 @@ header{
 
 <script>
 // ============================================================
-// FreqUno v2 - Three-Slider Sound Matching Game
-// Dimensions: Pitch (freq), Brightness (filter), Space (reverb)
+// FreqUno v3 - Two Sliders (Pitch + Brightness) + Random Timbre
 // ============================================================
-
 const TOTAL_ROUNDS = 5;
 const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-const MIDI_MIN = 48; // C3
-const MIDI_MAX = 84; // C6
-const MIDI_RANGE = MIDI_MAX - MIDI_MIN;
+const MIDI_MIN = 48, MIDI_MAX = 84, MIDI_RANGE = MIDI_MAX - MIDI_MIN;
 
 function midiToFreq(m){ return 440 * Math.pow(2, (m - 69) / 12); }
 function midiToName(m){ return NOTE_NAMES[m % 12] + (Math.floor(m / 12) - 1); }
 
 // ============================================================
-// Audio Engine - Sustained synth with live parameter control
+// Timbres - random per round, not guessed
+// ============================================================
+const TIMBRES = [
+  { name: 'Warm Pad', wave: 'sine', subType: 'triangle', subMix: .25, filterQ: .5, attack: .08 },
+  { name: 'Bright Lead', wave: 'sawtooth', subType: 'sine', subMix: .1, filterQ: 2, attack: .02 },
+  { name: 'Soft Pluck', wave: 'triangle', subType: 'sine', subMix: .2, filterQ: 1, attack: .005 },
+  { name: 'Square Synth', wave: 'square', subType: 'sine', subMix: .15, filterQ: 1.5, attack: .01 },
+  { name: 'Airy Flute', wave: 'sine', subType: 'triangle', subMix: .08, filterQ: .3, attack: .06 },
+  { name: 'Thick Bass', wave: 'sawtooth', subType: 'square', subMix: .3, filterQ: 1, attack: .01 },
+  { name: 'Glass Bell', wave: 'sine', subType: 'sine', subMix: .0, filterQ: .2, attack: .002, bellMode: true },
+  { name: 'Reedy Organ', wave: 'sawtooth', subType: 'square', subMix: .12, filterQ: .8, attack: .015 },
+];
+
+// ============================================================
+// Audio Engine
 // ============================================================
 let audioCtx = null;
 function getCtx(){
@@ -556,175 +427,135 @@ function getCtx(){
   return audioCtx;
 }
 
-// Reverb impulse (created once)
 let reverbConv = null;
-function getReverbNode(ctx){
+function getReverb(ctx){
   if(reverbConv) return reverbConv;
-  const len = ctx.sampleRate * 2;
+  const len = ctx.sampleRate * 1.2;
   const buf = ctx.createBuffer(2, len, ctx.sampleRate);
-  for(let ch = 0; ch < 2; ch++){
-    const d = buf.getChannelData(ch);
-    for(let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.2);
-  }
-  reverbConv = ctx.createConvolver();
-  reverbConv.buffer = buf;
+  for(let ch=0;ch<2;ch++){const d=buf.getChannelData(ch);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.5);}
+  reverbConv = ctx.createConvolver(); reverbConv.buffer = buf;
   return reverbConv;
 }
 
-// Live synth: a sustained oscillator + filter + reverb that can be updated in real-time
 let liveSynth = null;
+let currentTimbreIdx = 0;
 
-function startLiveSynth(pitch, brightness, space){
-  const ctx = getCtx();
-  stopLiveSynth();
-
-  const freq = midiToFreq(pitch);
-  // Sawtooth for rich harmonics that the filter can shape
+function buildSynth(ctx, timbre, freq, brightness){
+  const now = ctx.currentTime;
   const osc = ctx.createOscillator();
-  osc.type = 'sawtooth';
+  osc.type = timbre.wave;
   osc.frequency.value = freq;
 
-  // Sub oscillator for warmth
   const sub = ctx.createOscillator();
-  sub.type = 'sine';
+  sub.type = timbre.subType;
   sub.frequency.value = freq;
+  const subG = ctx.createGain();
+  subG.gain.value = timbre.subMix;
 
-  const subGain = ctx.createGain();
-  subGain.gain.value = 0.15;
+  // Bell mode: add inharmonic partials
+  const bellOscs = [];
+  if(timbre.bellMode){
+    [2.76, 5.4].forEach(r => {
+      const bo = ctx.createOscillator(); bo.type = 'sine'; bo.frequency.value = freq * r;
+      const bg = ctx.createGain(); bg.gain.value = .08 / r;
+      bo.connect(bg); bellOscs.push({osc: bo, gain: bg});
+    });
+  }
 
-  // Brightness = lowpass filter cutoff (200 Hz to 8000 Hz)
-  const filter = ctx.createBiquadFilter();
-  filter.type = 'lowpass';
-  filter.frequency.value = 200 + brightness * 7800;
-  filter.Q.value = 0.7 + brightness * 2;
+  const flt = ctx.createBiquadFilter();
+  flt.type = 'lowpass';
+  flt.frequency.value = 200 + brightness * 7800;
+  flt.Q.value = timbre.filterQ;
 
-  // Mix node
   const mix = ctx.createGain();
-  mix.gain.value = 0.22;
+  mix.gain.value = .22;
 
-  // Dry/wet for reverb
-  const dryGain = ctx.createGain();
-  const wetGain = ctx.createGain();
-  dryGain.gain.value = 1 - space * 0.6;
-  wetGain.gain.value = space * 0.8;
+  // Light reverb for all
+  const dryG = ctx.createGain(); dryG.gain.value = .85;
+  const wetG = ctx.createGain(); wetG.gain.value = .2;
 
-  osc.connect(filter);
-  sub.connect(subGain);
-  subGain.connect(filter);
-  filter.connect(mix);
+  osc.connect(flt);
+  sub.connect(subG); subG.connect(flt);
+  bellOscs.forEach(b => b.gain.connect(flt));
+  flt.connect(mix);
+  mix.connect(dryG); dryG.connect(ctx.destination);
+  const rev = getReverb(ctx);
+  mix.connect(rev); rev.connect(wetG); wetG.connect(ctx.destination);
 
-  mix.connect(dryGain);
-  dryGain.connect(ctx.destination);
-
-  const reverb = getReverbNode(ctx);
-  mix.connect(reverb);
-  reverb.connect(wetGain);
-  wetGain.connect(ctx.destination);
-
-  osc.start();
-  sub.start();
-
-  liveSynth = { osc, sub, filter, mix, dryGain, wetGain, subGain };
+  return { osc, sub, subG, flt, mix, dryG, wetG, bellOscs };
 }
 
-function updateLiveSynth(pitch, brightness, space){
+function startLiveSynth(pitch, brightness){
+  const ctx = getCtx();
+  stopLiveSynth();
+  const timbre = TIMBRES[currentTimbreIdx];
+  const freq = midiToFreq(pitch);
+  const s = buildSynth(ctx, timbre, freq, brightness);
+  s.osc.start(); s.sub.start();
+  s.bellOscs.forEach(b => b.osc.start());
+  liveSynth = s;
+}
+
+function updateLiveSynth(pitch, brightness){
   if(!liveSynth) return;
   const ctx = getCtx();
   const freq = midiToFreq(pitch);
   const now = ctx.currentTime;
-
-  liveSynth.osc.frequency.setTargetAtTime(freq, now, 0.03);
-  liveSynth.sub.frequency.setTargetAtTime(freq, now, 0.03);
-  liveSynth.filter.frequency.setTargetAtTime(200 + brightness * 7800, now, 0.03);
-  liveSynth.filter.Q.setTargetAtTime(0.7 + brightness * 2, now, 0.03);
-  liveSynth.dryGain.gain.setTargetAtTime(1 - space * 0.6, now, 0.03);
-  liveSynth.wetGain.gain.setTargetAtTime(space * 0.8, now, 0.03);
+  const timbre = TIMBRES[currentTimbreIdx];
+  liveSynth.osc.frequency.setTargetAtTime(freq, now, .03);
+  liveSynth.sub.frequency.setTargetAtTime(freq, now, .03);
+  liveSynth.flt.frequency.setTargetAtTime(200 + brightness * 7800, now, .03);
+  liveSynth.bellOscs.forEach(b => b.osc.frequency.setTargetAtTime(freq * (b === liveSynth.bellOscs[0] ? 2.76 : 5.4), now, .03));
 }
 
 function stopLiveSynth(){
   if(!liveSynth) return;
   try{
-    const ctx = getCtx();
-    const now = ctx.currentTime;
-    liveSynth.mix.gain.setTargetAtTime(0, now, 0.05);
+    const ctx = getCtx(), now = ctx.currentTime;
+    liveSynth.mix.gain.setTargetAtTime(0, now, .04);
     const s = liveSynth;
-    setTimeout(()=>{ try{s.osc.stop();s.sub.stop();}catch(e){} }, 200);
+    setTimeout(()=>{ try{s.osc.stop();s.sub.stop();s.bellOscs.forEach(b=>b.osc.stop());}catch(e){} }, 150);
   }catch(e){}
   liveSynth = null;
 }
 
-// Play a fixed-duration sound with given params (for target playback)
-function playFixed(pitch, brightness, space, dur){
+function playFixed(timbreIdx, pitch, brightness, dur){
   const ctx = getCtx();
+  const timbre = TIMBRES[timbreIdx];
   const freq = midiToFreq(pitch);
   const now = ctx.currentTime;
-
-  const osc = ctx.createOscillator();
-  osc.type = 'sawtooth';
-  osc.frequency.value = freq;
-
-  const sub = ctx.createOscillator();
-  sub.type = 'sine';
-  sub.frequency.value = freq;
-  const subG = ctx.createGain(); subG.gain.value = 0.15;
-
-  const flt = ctx.createBiquadFilter();
-  flt.type = 'lowpass';
-  flt.frequency.value = 200 + brightness * 7800;
-  flt.Q.value = 0.7 + brightness * 2;
-
-  const env = ctx.createGain();
-  env.gain.setValueAtTime(0.001, now);
-  env.gain.linearRampToValueAtTime(0.22, now + 0.06);
-  env.gain.setValueAtTime(0.22, now + dur - 0.1);
-  env.gain.linearRampToValueAtTime(0.001, now + dur);
-
-  const dryG = ctx.createGain(); dryG.gain.value = 1 - space * 0.6;
-  const wetG = ctx.createGain(); wetG.gain.value = space * 0.8;
-
-  osc.connect(flt);
-  sub.connect(subG); subG.connect(flt);
-  flt.connect(env);
-  env.connect(dryG); dryG.connect(ctx.destination);
-  const rev = getReverbNode(ctx);
-  env.connect(rev); rev.connect(wetG); wetG.connect(ctx.destination);
-
-  osc.start(now); osc.stop(now + dur);
-  sub.start(now); sub.stop(now + dur);
+  const s = buildSynth(ctx, timbre, freq, brightness);
+  // Envelope
+  s.mix.gain.setValueAtTime(.001, now);
+  s.mix.gain.linearRampToValueAtTime(.22, now + timbre.attack);
+  s.mix.gain.setValueAtTime(.22, now + dur - .1);
+  s.mix.gain.linearRampToValueAtTime(.001, now + dur);
+  s.osc.start(now); s.osc.stop(now + dur);
+  s.sub.start(now); s.sub.stop(now + dur);
+  s.bellOscs.forEach(b => { b.osc.start(now); b.osc.stop(now + dur); });
 }
 
 // ============================================================
-// RNG / Utils
+// Utility
 // ============================================================
 function hashStr(s){let h=0;for(let i=0;i<s.length;i++)h=Math.imul(31,h)+s.charCodeAt(i)|0;return h}
 function makeRng(seed){let s=Math.abs(seed)||1;return()=>{s=(s*16807)%2147483647;return(s-1)/2147483646}}
 function todayStr(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+function seedToCode(seed){const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let n=Math.abs(seed),code='';for(let i=0;i<6;i++){code+=ch[n%ch.length];n=Math.floor(n/ch.length)+i*7;}return code}
+function codeToSeed(code){const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let n=0;for(let i=code.length-1;i>=0;i--){const idx=ch.indexOf(code[i]);if(idx<0)return 0;n=n*ch.length+idx;}return n||hashStr(code)}
 
 function generateRounds(seed){
   const rng = makeRng(seed);
   const rounds = [];
-  for(let i = 0; i < TOTAL_ROUNDS; i++){
+  for(let i=0;i<TOTAL_ROUNDS;i++){
     rounds.push({
       pitch: MIDI_MIN + Math.floor(rng() * (MIDI_RANGE + 1)),
-      brightness: 0.1 + rng() * 0.8,  // 0.1-0.9 range
-      space: rng() * 0.9,             // 0-0.9 range
+      brightness: .1 + rng() * .8,
+      timbreIdx: Math.floor(rng() * TIMBRES.length),
     });
   }
   return rounds;
-}
-
-// Code system
-function seedToCode(seed){
-  const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let n=Math.abs(seed),code='';
-  for(let i=0;i<6;i++){code+=ch[n%ch.length];n=Math.floor(n/ch.length)+i*7;}
-  return code;
-}
-function codeToSeed(code){
-  const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let n=0;for(let i=code.length-1;i>=0;i--){const idx=ch.indexOf(code[i]);if(idx<0)return 0;n=n*ch.length+idx;}
-  return n||hashStr(code);
 }
 
 // ============================================================
@@ -740,34 +571,21 @@ let gameFinished = false;
 let hasHeardThisRound = false;
 let replaysLeft = 0;
 let isPlaying = false;
-let generatedSeed = 0;
-let vsSeed = 0;
+let generatedSeed = 0, vsSeed = 0;
+let userPitch = .5, userBright = .5;
+let isDragging = false, activeSlider = null;
+let pendingAB = null; // result waiting for A/B dismiss
 
-// User slider values (0-1 normalized)
-let userPitch = 0.5;    // maps to MIDI
-let userBright = 0.5;   // 0-1
-let userSpace = 0.2;    // 0-1
-let isDragging = false;
-let activeSlider = null;
-
-// ============================================================
-// Persistence
-// ============================================================
-function loadDaily(){
-  try{const s=JSON.parse(localStorage.getItem('fq2_daily'));
-    if(s&&s.date===TODAY){currentRound=s.cr||0;roundResults=s.rr||[];gameFinished=s.gf||false;return true;}
-  }catch(e){}return false;
-}
-function saveDaily(){
-  localStorage.setItem('fq2_daily',JSON.stringify({date:TODAY,cr:currentRound,rr:roundResults,gf:gameFinished}));
-}
-function loadStats(){try{return JSON.parse(localStorage.getItem('fq2_stats'))||{played:0,totalScore:0,best:0,history:[]};}catch(e){return{played:0,totalScore:0,best:0,history:[]};}}
-function saveStats(st){localStorage.setItem('fq2_stats',JSON.stringify(st))}
-function loadVs(){try{return JSON.parse(localStorage.getItem('fq2_vs'))||{};}catch(e){return{};}}
-function saveVsResult(code,score,name){const vs=loadVs();if(!vs[code])vs[code]={scores:[]};vs[code].scores.push({name,score,date:TODAY});localStorage.setItem('fq2_vs',JSON.stringify(vs));}
+// Persistence (v3 keys)
+function loadDaily(){try{const s=JSON.parse(localStorage.getItem('fq3_daily'));if(s&&s.date===TODAY){currentRound=s.cr||0;roundResults=s.rr||[];gameFinished=s.gf||false;return true;}}catch(e){}return false}
+function saveDaily(){localStorage.setItem('fq3_daily',JSON.stringify({date:TODAY,cr:currentRound,rr:roundResults,gf:gameFinished}))}
+function loadStats(){try{return JSON.parse(localStorage.getItem('fq3_stats'))||{played:0,totalScore:0,best:0,history:[]};}catch(e){return{played:0,totalScore:0,best:0,history:[]};}}
+function saveStats(st){localStorage.setItem('fq3_stats',JSON.stringify(st))}
+function loadVs(){try{return JSON.parse(localStorage.getItem('fq3_vs'))||{};}catch(e){return{};}}
+function saveVsResult(code,score,name){const vs=loadVs();if(!vs[code])vs[code]={scores:[]};vs[code].scores.push({name,score,date:TODAY});localStorage.setItem('fq3_vs',JSON.stringify(vs))}
 
 // ============================================================
-// Navigation & Utils
+// Navigation
 // ============================================================
 function navigate(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const t=document.getElementById('page-'+id);if(t)t.classList.add('active');if(id==='leaderboard')renderLb('today');}
 function showNameModal(){document.getElementById('nameInput').value=playerName;document.getElementById('nameModal').classList.add('active')}
@@ -775,78 +593,42 @@ function saveName(){const v=document.getElementById('nameInput').value.trim();if
 function updatePlayerTag(){document.getElementById('playerName').textContent=playerName||'Set Name';document.getElementById('playerAvatar').textContent=playerName?playerName[0].toUpperCase():'?';}
 function closeModal(id){document.getElementById(id).classList.remove('active')}
 function showHelp(){document.getElementById('helpModal').classList.add('active')}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
-
-async function showCountdown(){
-  const overlay=document.getElementById('cdOverlay');
-  const text=document.getElementById('cdText');
-  overlay.classList.add('active');
-  for(const word of ['Ready','Listen']){
-    text.textContent=word;text.style.animation='none';text.offsetHeight;text.style.animation='cdPop .5s ease';
-    await sleep(1000);
-  }
-  overlay.classList.remove('active');
-}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+async function showCountdown(){const o=document.getElementById('cdOverlay'),t=document.getElementById('cdText');o.classList.add('active');for(const w of['Ready','Listen']){t.textContent=w;t.style.animation='none';t.offsetHeight;t.style.animation='cdPop .5s ease';await sleep(1000);}o.classList.remove('active')}
 
 // ============================================================
-// Game Start
+// Game Flow
 // ============================================================
-function startDaily(){
-  if(!playerName){showNameModal();showToast('Set your name first!');return;}
-  currentMode='daily';gameRounds=generateRounds(hashStr(TODAY));
-  const restored=loadDaily();
-  if(!restored){currentRound=0;roundResults=[];gameFinished=false;}
-  initGame();navigate('game');
-  if(gameFinished)setTimeout(()=>showResult(roundResults.reduce((a,r)=>a+r.total,0)),400);
-}
-function startPractice(){
-  currentMode='practice';gameRounds=generateRounds(Date.now());
-  currentRound=0;roundResults=[];gameFinished=false;
-  initGame();navigate('game');
-}
-function playChallenge(seed){
-  if(!playerName){showNameModal();showToast('Set your name first!');return;}
-  currentMode='vs';vsSeed=seed;gameRounds=generateRounds(seed);
-  currentRound=0;roundResults=[];gameFinished=false;
-  initGame();navigate('game');
-}
-function createChallenge(){
-  generatedSeed=hashStr(TODAY+'-'+Date.now()+'-'+Math.random());
-  document.getElementById('generatedCode').textContent=seedToCode(generatedSeed);
-  document.getElementById('generatedCodeCard').style.display='';
-}
+function startDaily(){if(!playerName){showNameModal();showToast('Set your name first!');return;}currentMode='daily';gameRounds=generateRounds(hashStr(TODAY));const r=loadDaily();if(!r){currentRound=0;roundResults=[];gameFinished=false;}initGame();navigate('game');if(gameFinished)setTimeout(()=>showResult(roundResults.reduce((a,r)=>a+r.total,0)),400);}
+function startPractice(){currentMode='practice';gameRounds=generateRounds(Date.now());currentRound=0;roundResults=[];gameFinished=false;initGame();navigate('game');}
+function playChallenge(seed){if(!playerName){showNameModal();showToast('Set your name first!');return;}currentMode='vs';vsSeed=seed;gameRounds=generateRounds(seed);currentRound=0;roundResults=[];gameFinished=false;initGame();navigate('game');}
+function createChallenge(){generatedSeed=hashStr(TODAY+'-'+Date.now()+'-'+Math.random());document.getElementById('generatedCode').textContent=seedToCode(generatedSeed);document.getElementById('generatedCodeCard').style.display='';}
 function copyCode(){navigator.clipboard.writeText(document.getElementById('generatedCode').textContent).then(()=>showToast('Copied!'))}
 function joinChallenge(){const c=document.getElementById('joinCodeInput').value.trim().toUpperCase();if(c.length<4){showToast('Enter a valid code');return;}vsSeed=codeToSeed(c);playChallenge(vsSeed);}
-function confirmExit(){stopLiveSynth();if(gameFinished||currentMode==='practice'||roundResults.length===0){navigate('home');return;}if(confirm('Leave? Daily progress is saved.')){navigate('home');}}
+function confirmExit(){stopLiveSynth();if(gameFinished||currentMode==='practice'||roundResults.length===0){navigate('home');return;}if(confirm('Leave? Daily progress saved.')){navigate('home');}}
 
-// ============================================================
-// Game UI
-// ============================================================
 function initGame(){
   document.getElementById('gameModeLabel').textContent={daily:'Daily Challenge',practice:'Practice Mode',vs:'Challenge Match'}[currentMode];
   document.getElementById('gameDateLabel').textContent=currentMode==='daily'?' -- '+TODAY:'';
   document.getElementById('vsStatusBar').style.display=currentMode==='vs'?'':'none';
   if(currentMode==='vs'){
-    document.getElementById('vsP1Name').textContent=playerName||'You';
-    document.getElementById('vsP1Score').textContent='0';
-    const code=seedToCode(vsSeed);const vsD=loadVs()[code];
-    const f=vsD?.scores?.find(s=>s.name!==playerName);
-    document.getElementById('vsP2Name').textContent=f?f.name:'Friend';
-    document.getElementById('vsP2Score').textContent=f?f.score:'--';
+    document.getElementById('vsP1Name').textContent=playerName||'You';document.getElementById('vsP1Score').textContent='0';
+    const code=seedToCode(vsSeed);const vsD=loadVs()[code];const f=vsD?.scores?.find(s=>s.name!==playerName);
+    document.getElementById('vsP2Name').textContent=f?f.name:'Friend';document.getElementById('vsP2Score').textContent=f?f.score:'--';
   }
-  renderRoundBar();
-  renderFbStrip();
+  renderRoundBar();renderFbStrip();
   if(!gameFinished) initRound();
   else setGameEnabled(false);
 }
 
 function initRound(){
-  userPitch=0.5; userBright=0.5; userSpace=0.2;
-  hasHeardThisRound=false; replaysLeft=0;
-  updateAllSliderUI();
-  updateListenUI();
+  userPitch=.5;userBright=.5;
+  hasHeardThisRound=false;replaysLeft=0;
+  currentTimbreIdx = gameRounds[currentRound].timbreIdx;
+  document.getElementById('timbreBadge').textContent = 'Timbre: ' + TIMBRES[currentTimbreIdx].name;
+  updateAllSliderUI();updateListenUI();
   setGameEnabled(true);
-  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('submitBtn').disabled=false;
 }
 
 function renderRoundBar(){
@@ -856,10 +638,9 @@ function renderRoundBar(){
     if(i<roundResults.length){
       const t=roundResults[i].total;
       d.className+=' '+(t>=17?'s-perfect':t>=12?'s-great':t>=7?'s-ok':'s-miss');
-      d.textContent=t;
-    }else if(i===currentRound&&!gameFinished){
-      d.className+=' active';d.textContent=i+1;
-    }else{d.textContent=i+1;}
+      d.textContent=t.toFixed(0);
+    }else if(i===currentRound&&!gameFinished){d.className+=' active';d.textContent=i+1;}
+    else{d.textContent=i+1;}
     bar.appendChild(d);
   }
   document.getElementById('roundNum').textContent=Math.min(currentRound+1,TOTAL_ROUNDS);
@@ -872,320 +653,219 @@ function setGameEnabled(en){
 }
 
 // ============================================================
-// Slider Interaction (with live audio)
+// Sliders
 // ============================================================
-function getUserMidi(){ return Math.round(MIDI_MIN + userPitch * MIDI_RANGE); }
-
+function getUserMidi(){return Math.round(MIDI_MIN+userPitch*MIDI_RANGE)}
 function updateAllSliderUI(){
-  document.getElementById('thumbPitch').style.left = (userPitch * 100) + '%';
-  document.getElementById('pitchVal').textContent = midiToName(getUserMidi());
-  document.getElementById('thumbBright').style.left = (userBright * 100) + '%';
-  document.getElementById('brightVal').textContent = Math.round(userBright * 100) + '%';
-  document.getElementById('thumbSpace').style.left = (userSpace * 100) + '%';
-  document.getElementById('spaceVal').textContent = Math.round(userSpace * 100) + '%';
+  document.getElementById('thumbPitch').style.left=(userPitch*100)+'%';
+  document.getElementById('pitchVal').textContent=midiToName(getUserMidi());
+  document.getElementById('thumbBright').style.left=(userBright*100)+'%';
+  document.getElementById('brightVal').textContent=Math.round(userBright*100)+'%';
 }
 
-function sliderPctFromEvent(trackEl, e){
-  const rect = trackEl.getBoundingClientRect();
-  const cx = e.touches ? e.touches[0].clientX : e.clientX;
-  return Math.max(0, Math.min(1, (cx - rect.left) / rect.width));
-}
-
-// Setup slider interactions
-['Pitch','Bright','Space'].forEach(name => {
-  const track = document.getElementById('track' + name);
-
-  function onStart(e){
-    if(gameFinished) return;
-    getCtx(); // ensure audio context on gesture
-    isDragging = true;
-    activeSlider = name;
-    onMove(e);
-    // Start live synth
-    startLiveSynth(getUserMidi(), userBright, userSpace);
-    document.getElementById('soundIndicator').classList.remove('hidden');
-  }
-
+['Pitch','Bright'].forEach(name=>{
+  const track=document.getElementById('track'+name);
+  function onStart(e){if(gameFinished)return;getCtx();isDragging=true;activeSlider=name;onMove(e);startLiveSynth(getUserMidi(),userBright);document.getElementById('soundIndicator').classList.remove('hidden');}
   function onMove(e){
-    if(!isDragging || activeSlider !== name) return;
-    const pct = sliderPctFromEvent(track, e);
-    if(name === 'Pitch') userPitch = pct;
-    else if(name === 'Bright') userBright = pct;
-    else userSpace = pct;
+    if(!isDragging||activeSlider!==name)return;
+    const rect=track.getBoundingClientRect();const cx=e.touches?e.touches[0].clientX:e.clientX;
+    const pct=Math.max(0,Math.min(1,(cx-rect.left)/rect.width));
+    if(name==='Pitch')userPitch=pct;else userBright=pct;
     updateAllSliderUI();
-    if(liveSynth) updateLiveSynth(getUserMidi(), userBright, userSpace);
+    if(liveSynth)updateLiveSynth(getUserMidi(),userBright);
   }
-
-  track.addEventListener('mousedown', onStart);
-  track.addEventListener('touchstart', onStart, {passive: true});
-  track.addEventListener('mousemove', onMove);
-  track.addEventListener('touchmove', onMove, {passive: true});
+  track.addEventListener('mousedown',onStart);
+  track.addEventListener('touchstart',onStart,{passive:true});
+  track.addEventListener('mousemove',onMove);
+  track.addEventListener('touchmove',onMove,{passive:true});
 });
-
-function onEnd(){
-  if(isDragging){
-    isDragging = false;
-    activeSlider = null;
-    stopLiveSynth();
-    document.getElementById('soundIndicator').classList.add('hidden');
-  }
-}
-document.addEventListener('mouseup', onEnd);
-document.addEventListener('touchend', onEnd);
-document.addEventListener('touchcancel', onEnd);
+function onEnd(){if(isDragging){isDragging=false;activeSlider=null;stopLiveSynth();document.getElementById('soundIndicator').classList.add('hidden');}}
+document.addEventListener('mouseup',onEnd);
+document.addEventListener('touchend',onEnd);
+document.addEventListener('touchcancel',onEnd);
 
 // ============================================================
-// Listen System
+// Listen
 // ============================================================
 function updateListenUI(){
-  const btn=document.getElementById('playTarget');
-  const status=document.getElementById('listenStatus');
-  const hint=document.getElementById('listenHint');
-  if(gameFinished){btn.disabled=true;status.textContent='Game over';hint.textContent='';return;}
-  if(isPlaying){btn.disabled=true;status.textContent='Listen carefully...';hint.textContent='Playing...';return;}
-  if(!hasHeardThisRound){
-    btn.disabled=false;status.textContent='Tap to listen';hint.textContent='Plays 2x, then 1 replay';
-  }else if(replaysLeft>0){
-    btn.disabled=false;status.textContent=`${replaysLeft} replay left`;hint.textContent='Tap to hear it once more';
-  }else{
-    btn.disabled=true;status.textContent='No replays left';hint.textContent='Trust your ears!';
-  }
+  const btn=document.getElementById('playTarget'),st=document.getElementById('listenStatus'),hi=document.getElementById('listenHint');
+  if(gameFinished){btn.disabled=true;st.textContent='Game over';hi.textContent='';return;}
+  if(isPlaying){btn.disabled=true;st.textContent='Listen carefully...';hi.textContent='Playing...';return;}
+  if(!hasHeardThisRound){btn.disabled=false;st.textContent='Tap to listen';hi.textContent='Plays 2x, then 1 replay';}
+  else if(replaysLeft>0){btn.disabled=false;st.textContent=`${replaysLeft} replay left`;hi.textContent='Tap to hear once more';}
+  else{btn.disabled=true;st.textContent='No replays left';hi.textContent='Trust your ears!';}
 }
 
-document.getElementById('playTarget').addEventListener('click', async()=>{
-  if(gameFinished||isPlaying) return;
-  getCtx();
-  const target = gameRounds[currentRound];
-  const btn = document.getElementById('playTarget');
-
+document.getElementById('playTarget').addEventListener('click',async()=>{
+  if(gameFinished||isPlaying)return;getCtx();
+  const t=gameRounds[currentRound],btn=document.getElementById('playTarget');
   if(!hasHeardThisRound){
-    isPlaying=true; btn.disabled=true; updateListenUI();
-    await showCountdown();
-    btn.classList.add('playing');
-    for(let rep=0;rep<2;rep++){
-      playFixed(target.pitch, target.brightness, target.space, 2);
-      await sleep(2200);
-      if(rep<1) await sleep(400);
-    }
-    btn.classList.remove('playing');
-    isPlaying=false; hasHeardThisRound=true; replaysLeft=1;
-    updateListenUI();
+    isPlaying=true;btn.disabled=true;updateListenUI();await showCountdown();btn.classList.add('playing');
+    for(let r=0;r<2;r++){playFixed(t.timbreIdx,t.pitch,t.brightness,2);await sleep(2200);if(r<1)await sleep(400);}
+    btn.classList.remove('playing');isPlaying=false;hasHeardThisRound=true;replaysLeft=1;updateListenUI();
   }else if(replaysLeft>0){
-    replaysLeft--;
-    isPlaying=true; updateListenUI();
-    await showCountdown();
-    btn.classList.add('playing');
-    playFixed(target.pitch, target.brightness, target.space, 2);
-    await sleep(2200);
-    btn.classList.remove('playing');
-    isPlaying=false; updateListenUI();
+    replaysLeft--;isPlaying=true;updateListenUI();await showCountdown();btn.classList.add('playing');
+    playFixed(t.timbreIdx,t.pitch,t.brightness,2);await sleep(2200);
+    btn.classList.remove('playing');isPlaying=false;updateListenUI();
   }
 });
 
 // ============================================================
-// Submit & Scoring
+// Submit + A/B Compare
 // ============================================================
-document.getElementById('submitBtn').addEventListener('click', ()=>{
-  if(gameFinished) return;
-  stopLiveSynth();
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  if(gameFinished)return;stopLiveSynth();
+  const target=gameRounds[currentRound];
+  const guessMidi=getUserMidi();
+  const semiDiff=Math.abs(guessMidi-target.pitch);
+  const brightDiff=Math.abs(userBright-target.brightness);
 
-  const target = gameRounds[currentRound];
-  const guessMidi = getUserMidi();
-  const semiDiff = Math.abs(guessMidi - target.pitch);
-  const brightDiff = Math.abs(userBright - target.brightness);
-  const spaceDiff = Math.abs(userSpace - target.space);
+  // Score 0.00-10.00 per dimension
+  const pitchScore=Math.max(0, +(10 * Math.max(0, 1 - semiDiff / 12)).toFixed(2));
+  const brightScore=Math.max(0, +(10 * Math.max(0, 1 - brightDiff / .5)).toFixed(2));
+  const total=+(pitchScore+brightScore).toFixed(2);
 
-  // Score each dimension 0-7 (21 max, we cap at 20)
-  const pitchScore = Math.max(0, Math.round(7 * (1 - semiDiff / 12)));
-  const brightScore = Math.max(0, Math.round(7 * (1 - brightDiff / 0.5)));
-  const spaceScore = Math.max(0, Math.round(7 * (1 - spaceDiff / 0.5)));
-  const total = Math.min(20, pitchScore + brightScore + spaceScore);
-
-  const res = {
-    total, pitchScore, brightScore, spaceScore,
-    guessPitch: guessMidi, targetPitch: target.pitch, semiDiff,
-    guessBright: userBright, targetBright: target.brightness,
-    guessSpace: userSpace, targetSpace: target.space,
+  const res={
+    total, pitchScore, brightScore,
+    guessPitch:guessMidi, targetPitch:target.pitch, semiDiff,
+    guessBright:userBright, targetBright:target.brightness, brightDiff,
+    timbreIdx:target.timbreIdx,
   };
   roundResults.push(res);
+  renderRoundBar();renderFbStrip();
+  if(currentMode==='daily')saveDaily();
 
+  // Show A/B modal
+  showABCompare(res, currentRound);
+  pendingAB = currentRound;
   currentRound++;
-  if(currentRound >= TOTAL_ROUNDS){
-    gameFinished = true;
-    const totalScore = roundResults.reduce((a,r) => a + r.total, 0);
-    if(currentMode === 'daily'){ saveDaily(); recordScore(totalScore); }
-    if(currentMode === 'vs'){ saveVsResult(seedToCode(vsSeed), totalScore, playerName); }
-    setGameEnabled(false);
-    setTimeout(() => showResult(totalScore), 500);
-  }else{
-    if(currentMode === 'daily') saveDaily();
-    initRound();
-  }
-  renderRoundBar();
-  renderFbStrip();
-
-  if(currentMode === 'vs'){
-    document.getElementById('vsP1Score').textContent = roundResults.reduce((a,r) => a + r.total, 0);
-  }
 });
 
-function recordScore(score){
-  const st=loadStats();
-  if(st.history.find(h=>h.date===TODAY)) return;
-  st.played++;st.totalScore+=score;st.best=Math.max(st.best,score);
-  st.history.push({date:TODAY,score});saveStats(st);
+function showABCompare(res, idx){
+  const m=document.getElementById('abModal');
+  document.getElementById('abTitle').textContent=`Round ${idx+1} Result`;
+  document.getElementById('abTimbre').textContent='Timbre: '+TIMBRES[res.timbreIdx].name;
+
+  document.getElementById('abGuessVals').innerHTML=
+    `Pitch: <span>${midiToName(res.guessPitch)}</span><br>Bright: <span>${Math.round(res.guessBright*100)}%</span>`;
+  document.getElementById('abTargetVals').innerHTML=
+    `Pitch: <span>${midiToName(res.targetPitch)}</span><br>Bright: <span>${Math.round(res.targetBright*100)}%</span>`;
+
+  const scores=document.getElementById('abScores');
+  scores.innerHTML='';
+  [{label:'Pitch',score:res.pitchScore,color:'#06b6d4'},{label:'Brightness',score:res.brightScore,color:'#94a3b8'}].forEach(d=>{
+    const pct=d.score/10*100;
+    const barColor=d.score>=8?'var(--success)':d.score>=5?'var(--warning)':d.score>=3?'var(--orange)':'var(--error)';
+    scores.innerHTML+=`<div class="ab-score-row"><div class="ab-score-label" style="color:${d.color}">${d.label}</div><div class="ab-bar-wrap"><div class="ab-bar-fill" style="width:${pct}%;background:${barColor}"></div></div><div class="ab-score-pts">${d.score.toFixed(2)}</div></div>`;
+  });
+
+  const totalColor=res.total>=17?'var(--success)':res.total>=12?'var(--warning)':res.total>=7?'var(--orange)':'var(--error)';
+  document.getElementById('abTotal').innerHTML=`Total: <span style="color:${totalColor}">${res.total.toFixed(2)}</span> / 20`;
+
+  const isLast = currentRound + 1 >= TOTAL_ROUNDS;
+  document.getElementById('abNextBtn').textContent = isLast ? 'See Results' : 'Next Round';
+
+  // Wire play buttons
+  document.getElementById('abPlayGuess').onclick=()=>playFixed(res.timbreIdx, res.guessPitch, res.guessBright, 1.5);
+  document.getElementById('abPlayTarget').onclick=()=>playFixed(res.timbreIdx, res.targetPitch, res.targetBright, 1.5);
+
+  m.classList.add('active');
 }
+
+document.getElementById('abNextBtn').addEventListener('click',()=>{
+  document.getElementById('abModal').classList.remove('active');
+  if(currentRound>=TOTAL_ROUNDS){
+    gameFinished=true;
+    const totalScore=+roundResults.reduce((a,r)=>a+r.total,0).toFixed(2);
+    if(currentMode==='daily'){saveDaily();recordScore(totalScore);}
+    if(currentMode==='vs'){saveVsResult(seedToCode(vsSeed),totalScore,playerName);}
+    setGameEnabled(false);
+    setTimeout(()=>showResult(totalScore),300);
+  }else{
+    initRound();
+  }
+  if(currentMode==='vs'){document.getElementById('vsP1Score').textContent=roundResults.reduce((a,r)=>a+r.total,0).toFixed(1);}
+});
+
+function recordScore(score){const st=loadStats();if(st.history.find(h=>h.date===TODAY))return;st.played++;st.totalScore+=score;st.best=Math.max(st.best,score);st.history.push({date:TODAY,score});saveStats(st);}
 
 // ============================================================
 // Feedback Strip
 // ============================================================
 function renderFbStrip(){
-  const strip=document.getElementById('fbStrip');
-  strip.innerHTML='';
+  const strip=document.getElementById('fbStrip');strip.innerHTML='';
   for(let i=0;i<TOTAL_ROUNDS;i++){
     const chip=document.createElement('div');
     if(i<roundResults.length){
       const res=roundResults[i];
       const tier=res.total>=17?'perfect':res.total>=12?'great':res.total>=7?'ok':'miss';
       chip.className=`fb-chip tier-${tier}`;
-      chip.innerHTML=`<span class="chip-round">R${i+1}</span><span class="chip-score">${res.total}</span>`;
-      const tip=`Pitch:${res.pitchScore} Bright:${res.brightScore} Space:${res.spaceScore}`;
-      chip.innerHTML+=`<div class="fb-tooltip">${tip}</div>`;
-      chip.addEventListener('click',()=>{
-        document.querySelectorAll('.fb-chip.show-tip').forEach(c=>{if(c!==chip)c.classList.remove('show-tip');});
-        chip.classList.toggle('show-tip');
-        playFixed(res.targetPitch, res.targetBright, res.targetSpace, 1.5);
-      });
+      chip.innerHTML=`<span class="chip-round">R${i+1}</span><span class="chip-score">${res.total.toFixed(1)}</span>`;
+      chip.addEventListener('click',()=>showABCompare(res,i));
     }else{
-      chip.className='fb-chip empty';
-      chip.innerHTML=`<span>${i+1}</span>`;
+      chip.className='fb-chip empty';chip.innerHTML=`<span>${i+1}</span>`;
     }
     strip.appendChild(chip);
   }
 }
 
 // ============================================================
-// Result Modal
+// Result
 // ============================================================
 function showResult(score){
   const st=loadStats();
   document.getElementById('resTitle').textContent=score>=85?'Golden Ears!':score>=65?'Great Hearing!':score>=45?'Getting There!':'Keep Practicing!';
   document.getElementById('resSub').textContent=currentMode==='daily'?`Daily -- ${TODAY}`:currentMode==='vs'?'Challenge Match':'Practice';
-  document.getElementById('scoreFinal').textContent=score;
+  document.getElementById('scoreFinal').textContent=score.toFixed(1);
   document.getElementById('stPlayed').textContent=st.played;
-  document.getElementById('stAvg').textContent=st.played?Math.round(st.totalScore/st.played):0;
-  document.getElementById('stBest').textContent=st.best;
+  document.getElementById('stAvg').textContent=st.played?(st.totalScore/st.played).toFixed(1):0;
+  document.getElementById('stBest').textContent=st.best.toFixed?st.best.toFixed(1):st.best;
   document.getElementById('resultStats').style.display=currentMode==='practice'?'none':'';
   document.getElementById('countdown').style.display=currentMode==='daily'?'':'none';
-
-  const vsBlock=document.getElementById('vsResultBlock');
-  if(currentMode==='vs'){
-    vsBlock.style.display='';
-    document.getElementById('vrP1').textContent=playerName||'You';
-    document.getElementById('vrS1').textContent=score;
-    const code=seedToCode(vsSeed);const vsD=loadVs()[code];
-    const f=vsD?.scores?.find(s=>s.name!==playerName);
-    document.getElementById('vrP2').textContent=f?f.name:'Waiting...';
-    document.getElementById('vrS2').textContent=f?f.score:'--';
-  }else{ vsBlock.style.display='none'; }
-
-  const fg=document.getElementById('ringFg');
-  fg.style.stroke=score>=80?'var(--success)':score>=50?'var(--warning)':'var(--error)';
-  fg.style.strokeDashoffset='314';
-  requestAnimationFrame(()=>{fg.style.strokeDashoffset=314*(1-score/100);});
-
-  document.getElementById('resultModal').classList.add('active');
-  updateCountdown();
+  const vsB=document.getElementById('vsResultBlock');
+  if(currentMode==='vs'){vsB.style.display='';document.getElementById('vrP1').textContent=playerName||'You';document.getElementById('vrS1').textContent=score.toFixed(1);const code=seedToCode(vsSeed);const vsD=loadVs()[code];const f=vsD?.scores?.find(s=>s.name!==playerName);document.getElementById('vrP2').textContent=f?f.name:'Waiting...';document.getElementById('vrS2').textContent=f?f.score:'--';}
+  else{vsB.style.display='none';}
+  const fg=document.getElementById('ringFg');fg.style.stroke=score>=80?'var(--success)':score>=50?'var(--warning)':'var(--error)';fg.style.strokeDashoffset='314';requestAnimationFrame(()=>{fg.style.strokeDashoffset=314*(1-score/100);});
+  document.getElementById('resultModal').classList.add('active');updateCountdown();
 }
 
-// Share
 document.getElementById('shareBtn').addEventListener('click',()=>{
   const total=roundResults.reduce((a,r)=>a+r.total,0);
   const blocks=roundResults.map(r=>r.total>=17?'\u{1F7E9}':r.total>=12?'\u{1F7E8}':r.total>=7?'\u{1F7E7}':'\u{1F7E5}').join('');
-  let text=`FreqUno ${currentMode==='daily'?TODAY:'Challenge'}\nScore: ${total}/100\n${blocks}`;
+  let text=`FreqUno ${currentMode==='daily'?TODAY:'Challenge'}\nScore: ${total.toFixed(1)}/100\n${blocks}`;
   if(currentMode==='vs')text+=`\nCode: ${seedToCode(vsSeed)}`;
   text+='\n\nfrequno.io';
-  navigator.clipboard.writeText(text).then(()=>showToast('Copied to clipboard!'));
+  navigator.clipboard.writeText(text).then(()=>showToast('Copied!'));
 });
 
 // ============================================================
 // Leaderboard
 // ============================================================
-const FAKE_NAMES=['SonicSam','BeatBox42','TuneMaster','EarWorm','PitchPro','NoteNinja',
-  'FreqQueen','HzHero','OctaveKing','MelodyAce','WaveRider','SoundSage',
-  'ToneHawk','ChordKid','BassLine99','VibeCheck','EchoFox','HarmonyJ',
-  'RiffLord','GrooveBot','ScaleStar','TempoTiger','ClefKnight','DecibelDan',
-  'AudioAlly','SynthSara','DrumDiva','LoopLucy','MixMax','FaderFinn'];
-
-function genFakes(seed,count=20){
-  const rng=makeRng(seed);const players=[];const used=new Set();
-  for(let i=0;i<count;i++){
-    let ni=Math.floor(rng()*FAKE_NAMES.length);while(used.has(ni))ni=(ni+1)%FAKE_NAMES.length;used.add(ni);
-    const base=40+Math.floor(rng()*45);const bonus=rng()>.85?Math.floor(rng()*15):0;
-    players.push({name:FAKE_NAMES[ni],score:Math.min(100,base+bonus)});
-  }return players;
-}
-
+const FAKE_NAMES=['SonicSam','BeatBox42','TuneMaster','EarWorm','PitchPro','NoteNinja','FreqQueen','HzHero','OctaveKing','MelodyAce','WaveRider','SoundSage','ToneHawk','ChordKid','BassLine99','VibeCheck','EchoFox','HarmonyJ','RiffLord','GrooveBot','ScaleStar','TempoTiger','ClefKnight','DecibelDan','AudioAlly','SynthSara','DrumDiva','LoopLucy','MixMax','FaderFinn'];
+function genFakes(seed,count=20){const rng=makeRng(seed);const p=[];const u=new Set();for(let i=0;i<count;i++){let ni=Math.floor(rng()*FAKE_NAMES.length);while(u.has(ni))ni=(ni+1)%FAKE_NAMES.length;u.add(ni);const b=40+Math.floor(rng()*45);const bo=rng()>.85?Math.floor(rng()*15):0;p.push({name:FAKE_NAMES[ni],score:Math.min(100,b+bo)});}return p;}
 function renderLb(tab){
-  const list=document.getElementById('lbList');list.innerHTML='';
-  let entries=[];const st=loadStats();
-  if(tab==='today'){
-    const fakes=genFakes(hashStr(TODAY),20);
-    const ts=st.history.find(h=>h.date===TODAY);
-    if(ts)fakes.push({name:playerName||'You',score:ts.score,isMe:true});
-    entries=fakes.sort((a,b)=>b.score-a.score);
-  }else if(tab==='week'){
-    const now=new Date();let all=[];
-    for(let d=0;d<7;d++){const dt=new Date(now);dt.setDate(dt.getDate()-d);
-      const ds=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
-      all.push(...genFakes(hashStr(ds),8));}
-    const map={};all.forEach(e=>{if(!map[e.name]||e.score>map[e.name].score)map[e.name]={...e};});
-    const ws=st.history.filter(h=>{const hd=new Date(h.date);return(now-hd)<7*864e5;});
-    if(ws.length){const best=Math.max(...ws.map(s=>s.score));map[playerName||'You']={name:playerName||'You',score:best,isMe:true};}
-    entries=Object.values(map).sort((a,b)=>b.score-a.score).slice(0,25);
-  }else{
-    const fakes=genFakes(hashStr('fq2-alltime'),25);
-    fakes.forEach(f=>f.score=Math.min(100,f.score+Math.floor(Math.random()*10)));
-    if(st.best>0)fakes.push({name:playerName||'You',score:st.best,isMe:true});
-    entries=fakes.sort((a,b)=>b.score-a.score);
-  }
-  entries.slice(0,25).forEach((e,i)=>{
-    const row=document.createElement('div');row.className='lb-row'+(e.isMe?' me':'');
-    const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'normal';
-    row.innerHTML=`<div class="lb-rank ${rc}">${i+1}</div><div class="lb-info"><div class="lb-name">${e.name}${e.isMe?' (You)':''}</div></div><div class="lb-pts">${e.score}</div>`;
-    list.appendChild(row);
-  });
-  if(!entries.length) list.innerHTML='<div style="text-align:center;color:var(--text-dim);padding:24px;font-size:.85rem">No scores yet!</div>';
+  const list=document.getElementById('lbList');list.innerHTML='';let entries=[];const st=loadStats();
+  if(tab==='today'){const fk=genFakes(hashStr(TODAY),20);const ts=st.history.find(h=>h.date===TODAY);if(ts)fk.push({name:playerName||'You',score:+ts.score.toFixed(1),isMe:true});entries=fk.sort((a,b)=>b.score-a.score);}
+  else if(tab==='week'){const now=new Date();let all=[];for(let d=0;d<7;d++){const dt=new Date(now);dt.setDate(dt.getDate()-d);const ds=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;all.push(...genFakes(hashStr(ds),8));}const map={};all.forEach(e=>{if(!map[e.name]||e.score>map[e.name].score)map[e.name]={...e};});const ws=st.history.filter(h=>{const hd=new Date(h.date);return(now-hd)<7*864e5;});if(ws.length){const best=Math.max(...ws.map(s=>s.score));map[playerName||'You']={name:playerName||'You',score:+best.toFixed(1),isMe:true};}entries=Object.values(map).sort((a,b)=>b.score-a.score).slice(0,25);}
+  else{const fk=genFakes(hashStr('fq3-alltime'),25);fk.forEach(f=>f.score=Math.min(100,f.score+Math.floor(Math.random()*10)));if(st.best>0)fk.push({name:playerName||'You',score:+st.best.toFixed(1),isMe:true});entries=fk.sort((a,b)=>b.score-a.score);}
+  entries.slice(0,25).forEach((e,i)=>{const row=document.createElement('div');row.className='lb-row'+(e.isMe?' me':'');const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'normal';row.innerHTML=`<div class="lb-rank ${rc}">${i+1}</div><div class="lb-info"><div class="lb-name">${e.name}${e.isMe?' (You)':''}</div></div><div class="lb-pts">${typeof e.score==='number'?e.score.toFixed?e.score.toFixed(1):e.score:e.score}</div>`;list.appendChild(row);});
+  if(!entries.length)list.innerHTML='<div style="text-align:center;color:var(--text-dim);padding:24px;font-size:.85rem">No scores yet!</div>';
 }
 function switchLbTab(tab,btn){document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderLb(tab);}
 
 // ============================================================
 // Misc
 // ============================================================
-function updateCountdown(){
-  const now=new Date();const tmr=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
-  const d=tmr-now;
-  const h=String(Math.floor(d/36e5)).padStart(2,'0');
-  const m=String(Math.floor((d%36e5)/6e4)).padStart(2,'0');
-  const s=String(Math.floor((d%6e4)/1e3)).padStart(2,'0');
-  const el=document.getElementById('countdown');
-  if(el)el.innerHTML=`Next puzzle in <span>${h}:${m}:${s}</span>`;
-}
+function updateCountdown(){const now=new Date();const tmr=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);const d=tmr-now;const h=String(Math.floor(d/36e5)).padStart(2,'0');const m=String(Math.floor((d%36e5)/6e4)).padStart(2,'0');const s=String(Math.floor((d%6e4)/1e3)).padStart(2,'0');const el=document.getElementById('countdown');if(el)el.innerHTML=`Next puzzle in <span>${h}:${m}:${s}</span>`;}
 setInterval(updateCountdown,1000);
+['resultModal','nameModal','helpModal'].forEach(id=>{document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)closeModal(id);});});
+document.getElementById('abModal').addEventListener('click',e=>{/* don't close on overlay click - force button */});
 
-['resultModal','nameModal','helpModal'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)closeModal(id);});
-});
-
-// ============================================================
-// Init
-// ============================================================
 function init(){
   updatePlayerTag();
-  if(!playerName) setTimeout(()=>{showNameModal();showHelp();},300);
+  if(!playerName)setTimeout(()=>{showNameModal();showHelp();},300);
   const params=new URLSearchParams(window.location.search);
-  const c=params.get('c');
-  if(c){const seed=codeToSeed(c.toUpperCase());if(seed){if(!playerName){showNameModal();return;}vsSeed=seed;playChallenge(seed);}}
+  const c=params.get('c');if(c){const seed=codeToSeed(c.toUpperCase());if(seed){if(!playerName){showNameModal();return;}vsSeed=seed;playChallenge(seed);}}
 }
 init();
 </script>
