@@ -284,6 +284,25 @@ header{
 .legend-item{display:flex;align-items:center;gap:6px;font-size:.75rem}
 .legend-dot{width:16px;height:16px;border-radius:5px}
 
+/* Countdown overlay */
+.countdown-overlay{
+  position:fixed;inset:0;z-index:150;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(10,10,20,.85);backdrop-filter:blur(8px);
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.countdown-overlay.active{opacity:1;pointer-events:all}
+.cd-text{
+  font-size:4rem;font-weight:900;
+  color:var(--accent);text-transform:uppercase;letter-spacing:4px;
+  animation:cdPop .5s ease;
+}
+@keyframes cdPop{
+  0%{transform:scale(.5);opacity:0}
+  50%{transform:scale(1.15)}
+  100%{transform:scale(1);opacity:1}
+}
+
 /* Toast */
 .toast{
   position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);
@@ -519,6 +538,7 @@ header{
   </div>
 </div>
 
+<div class="countdown-overlay" id="cdOverlay"><div class="cd-text" id="cdText"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -896,6 +916,21 @@ const REPLAY_LIMIT = 1;
 
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 
+async function showCountdown(){
+  const overlay=document.getElementById('cdOverlay');
+  const text=document.getElementById('cdText');
+  overlay.classList.add('active');
+  const steps=['Ready','Listen'];
+  for(const word of steps){
+    text.textContent=word;
+    text.style.animation='none';
+    text.offsetHeight;
+    text.style.animation='cdPop .5s ease';
+    await sleep(1000);
+  }
+  overlay.classList.remove('active');
+}
+
 function updateListenUI(){
   const btn=document.getElementById('playTarget');
   const status=document.getElementById('listenStatus');
@@ -929,9 +964,10 @@ document.getElementById('playTarget').addEventListener('click',async()=>{
   const btn=document.getElementById('playTarget');
 
   if(!hasHeardThisRound){
-    // First listen: play 2 times
+    // First listen: countdown then play 2 times
     isAutoPlaying=true;
-    updateListenUI();
+    btn.disabled=true;
+    await showCountdown();
     for(let rep=0;rep<2;rep++){
       btn.classList.add('playing');
       playSynth(r.instIdx,midiToFreq(r.midi),1.2);
@@ -944,7 +980,10 @@ document.getElementById('playTarget').addEventListener('click',async()=>{
     replaysLeft=REPLAY_LIMIT;
     updateListenUI();
   } else if(replaysLeft>0){
+    // Replay: countdown then play
     replaysLeft--;
+    btn.disabled=true;
+    await showCountdown();
     btn.classList.add('playing');
     playSynth(r.instIdx,midiToFreq(r.midi),1.2);
     setTimeout(()=>{btn.classList.remove('playing');updateListenUI();},1200);
