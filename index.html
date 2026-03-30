@@ -369,10 +369,13 @@ header{
 
   <div class="card">
     <div class="card-label">Target Sound</div>
-    <div style="display:flex;justify-content:center">
-      <button class="play-btn" id="playTarget">&#9654;</button>
+    <div style="display:flex;justify-content:center;align-items:center;gap:14px">
+      <button class="play-btn" id="playTarget" disabled>&#9654;</button>
+      <div style="text-align:left">
+        <div style="font-size:.82rem;font-weight:600" id="listenStatus">Preparing...</div>
+        <div style="font-size:.68rem;color:var(--text-dim)" id="listenHint">Auto-plays 2x, then 1 replay</div>
+      </div>
     </div>
-    <div style="text-align:center;margin-top:6px;font-size:.68rem;color:var(--text-dim)">Tap to listen (unlimited)</div>
   </div>
 
   <div class="card" id="instCard">
@@ -500,6 +503,8 @@ header{
       <p><strong>Daily Challenge</strong> - 5 rounds, same for everyone. Score tracked on leaderboard.</p>
       <p><strong>Practice</strong> - Unlimited random rounds. No pressure.</p>
       <p><strong>Challenge Friend</strong> - Share a code so you both play the same 5 sounds. Compare scores!</p>
+      <h3>Listening</h3>
+      <p>Each round auto-plays the target sound <strong>2 times</strong>. After that you get <strong>1 replay</strong>. Use it wisely!</p>
       <h3>Scoring (per round, max 20)</h3>
       <p>Correct instrument = <strong>+10</strong> | Pitch accuracy = <strong>0-10</strong> (within 1 semitone = 10)</p>
       <h3>Feedback Colors</h3>
@@ -656,6 +661,8 @@ let selectedInst = -1;
 let sliderMidi = (MIDI_MIN+MIDI_MAX)/2;
 let roundResults = [];
 let gameFinished = false;
+let replaysLeft = 0;
+let isAutoPlaying = false;
 let vsSeed = 0;
 let generatedSeed = 0;
 
@@ -803,6 +810,16 @@ function setupGameUI(){
 
   // Disable if finished
   setGameEnabled(!gameFinished);
+
+  // Auto-play target sound for current round
+  if(!gameFinished){
+    replaysLeft=0;
+    updateListenUI();
+    setTimeout(()=>autoPlayRound(),500);
+  } else {
+    replaysLeft=0;
+    updateListenUI();
+  }
 }
 
 function renderRoundBar(){
@@ -853,13 +870,13 @@ function updateSubmitState(){
 }
 
 function setGameEnabled(enabled){
-  document.getElementById('playTarget').disabled=!enabled;
   document.getElementById('previewBtn').disabled=!enabled;
   if(!enabled){document.getElementById('submitBtn').disabled=true;
     ['instCard','pitchCard'].forEach(id=>document.getElementById(id).style.opacity='.45');
   } else {
     ['instCard','pitchCard'].forEach(id=>document.getElementById(id).style.opacity='1');
   }
+  updateListenUI();
 }
 
 // -- Slider interaction --
@@ -878,14 +895,65 @@ document.addEventListener('touchmove',e=>{if(dragging)sliderFromEvent(e)},{passi
 document.addEventListener('mouseup',()=>dragging=false);
 document.addEventListener('touchend',()=>dragging=false);
 
-// -- Play target --
+// -- Listen system: auto-play 2x on round start, 1 manual replay --
+const REPLAY_LIMIT = 1;
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+async function autoPlayRound(){
+  if(gameFinished||isAutoPlaying)return;
+  isAutoPlaying=true;
+  const r=gameRounds[currentRound];
+  const btn=document.getElementById('playTarget');
+  const status=document.getElementById('listenStatus');
+  const hint=document.getElementById('listenHint');
+
+  btn.disabled=true;
+  status.textContent='Listen carefully...';
+  hint.textContent='Playing 2 times';
+
+  for(let rep=0;rep<2;rep++){
+    btn.classList.add('playing');
+    playSynth(r.instIdx,midiToFreq(r.midi),1.2);
+    await sleep(1400);
+    btn.classList.remove('playing');
+    if(rep<1) await sleep(600);
+  }
+
+  replaysLeft=REPLAY_LIMIT;
+  isAutoPlaying=false;
+  updateListenUI();
+}
+
+function updateListenUI(){
+  const btn=document.getElementById('playTarget');
+  const status=document.getElementById('listenStatus');
+  const hint=document.getElementById('listenHint');
+  if(gameFinished){
+    btn.disabled=true;status.textContent='Game over';hint.textContent='';return;
+  }
+  if(isAutoPlaying){
+    btn.disabled=true;return;
+  }
+  if(replaysLeft>0){
+    btn.disabled=false;
+    status.textContent=`${replaysLeft} replay left`;
+    hint.textContent='Tap to hear it once more';
+  } else {
+    btn.disabled=true;
+    status.textContent='No replays left';
+    hint.textContent='Trust your memory!';
+  }
+}
+
 document.getElementById('playTarget').addEventListener('click',()=>{
-  if(gameFinished)return;
+  if(gameFinished||isAutoPlaying||replaysLeft<=0)return;
+  replaysLeft--;
   const r=gameRounds[currentRound];
   const btn=document.getElementById('playTarget');
   btn.classList.add('playing');
   playSynth(r.instIdx,midiToFreq(r.midi),1.2);
-  setTimeout(()=>btn.classList.remove('playing'),1200);
+  setTimeout(()=>{btn.classList.remove('playing');updateListenUI();},1200);
 });
 
 // -- Preview --
@@ -920,9 +988,12 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
     setTimeout(()=>showResult(totalScore),500);
   } else {
     selectedInst=-1;sliderMidi=(MIDI_MIN+MIDI_MAX)/2;
+    replaysLeft=0;
     if(currentMode==='daily')saveDaily();
+    // Auto-play next round after brief pause
+    setTimeout(()=>autoPlayRound(),800);
   }
-  renderRoundBar();renderInstGrid();updateSliderUI();updateSubmitState();
+  renderRoundBar();renderInstGrid();updateSliderUI();updateSubmitState();updateListenUI();
 
   if(currentMode==='vs'){
     document.getElementById('vsP1Score').textContent=roundResults.reduce((a,r)=>a+r.total,0);
