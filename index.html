@@ -159,24 +159,40 @@ header{
 .btn-pri:hover{box-shadow:0 4px 20px var(--accent-glow)}
 .btn:disabled{opacity:.35;cursor:not-allowed}
 
-/* --- Feedback Cards --- */
-.fb-card{
-  border-radius:var(--radius);padding:12px 14px;display:flex;align-items:center;gap:12px;
-  animation:slideIn .3s ease;cursor:pointer;
+/* --- Feedback: compact inline strip --- */
+.fb-strip{
+  display:flex;justify-content:center;gap:6px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:10px 14px;
 }
-@keyframes slideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.fb-rnd{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex-shrink:0}
-.fb-details{flex:1;font-size:.75rem;line-height:1.4}
-.fb-details .fb-line{display:flex;justify-content:space-between}
-.fb-score{font-size:1.2rem;font-weight:800;flex-shrink:0}
-.fb-perfect{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25)}
-.fb-perfect .fb-rnd{background:var(--success);color:var(--bg)} .fb-perfect .fb-score{color:var(--success)}
-.fb-great{background:rgba(234,179,8,.06);border:1px solid rgba(234,179,8,.2)}
-.fb-great .fb-rnd{background:var(--warning);color:var(--bg)} .fb-great .fb-score{color:var(--warning)}
-.fb-ok{background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.18)}
-.fb-ok .fb-rnd{background:var(--orange);color:white} .fb-ok .fb-score{color:var(--orange)}
-.fb-miss{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.18)}
-.fb-miss .fb-rnd{background:var(--error);color:white} .fb-miss .fb-score{color:var(--error)}
+.fb-chip{
+  width:42px;height:42px;border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;position:relative;
+  font-weight:800;color:white;
+}
+.fb-chip .chip-round{font-size:.55rem;opacity:.7}
+.fb-chip .chip-score{font-size:.95rem}
+.fb-chip:hover{transform:scale(1.1)}
+.fb-chip.tier-perfect{background:var(--success)}
+.fb-chip.tier-great{background:var(--warning);color:var(--bg)}
+.fb-chip.tier-ok{background:var(--orange)}
+.fb-chip.tier-miss{background:var(--error)}
+.fb-chip.empty{background:var(--surface2);border:2px dashed var(--border);color:var(--text-dim);font-size:.65rem}
+
+/* Tooltip on tap */
+.fb-tooltip{
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  padding:8px 12px;white-space:nowrap;font-size:.7rem;font-weight:500;
+  color:var(--text);z-index:10;pointer-events:none;
+  opacity:0;transition:opacity .2s;
+}
+.fb-tooltip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--border);
+}
+.fb-chip.show-tip .fb-tooltip{opacity:1}
 
 /* --- VS Mode Specific --- */
 .vs-status{
@@ -420,7 +436,7 @@ header{
     <button class="btn btn-pri" id="submitBtn" disabled>Submit</button>
   </div>
 
-  <div id="fbList" style="display:flex;flex-direction:column;gap:8px"></div>
+  <div class="fb-strip" id="fbStrip"></div>
 </div>
 
 <!-- ==================== VS LOBBY ==================== -->
@@ -558,72 +574,160 @@ function midiToFreq(m){ return 440 * Math.pow(2, (m - 69) / 12); }
 function freqToMidi(f){ return 69 + 12 * Math.log2(f / 440); }
 function midiToName(m){ return NOTE_NAMES[m % 12] + (Math.floor(m / 12) - 1); }
 
-// -- Instruments --
+// -- Reverb (shared convolver for warmth) --
+let reverbNode = null;
+function getReverb(ctx){
+  if(reverbNode) return reverbNode;
+  const len = ctx.sampleRate * 1.5;
+  const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+  for(let ch=0;ch<2;ch++){
+    const d = buf.getChannelData(ch);
+    for(let i=0;i<len;i++){
+      d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.5);
+    }
+  }
+  reverbNode = ctx.createConvolver();
+  reverbNode.buffer = buf;
+  return reverbNode;
+}
+
+// Route through reverb: dry/wet mix
+function withReverb(ctx, source, dryLevel, wetLevel){
+  const dry = ctx.createGain(); dry.gain.value = dryLevel;
+  const wet = ctx.createGain(); wet.gain.value = wetLevel;
+  const rev = getReverb(ctx);
+  source.connect(dry); dry.connect(ctx.destination);
+  source.connect(rev); rev.connect(wet); wet.connect(ctx.destination);
+  return dry;
+}
+
+// -- Instruments (richer synthesis with reverb) --
 const INSTRUMENTS = [
   { id:'piano', name:'Piano',
     synth(ctx,freq,dur){
       const n=ctx.currentTime;
-      const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq;
-      const o2=ctx.createOscillator();o2.type='sine';o2.frequency.value=freq*2;
-      const g=ctx.createGain();g.gain.setValueAtTime(.3,n);g.gain.exponentialRampToValueAtTime(.001,n+dur);
-      const g2=ctx.createGain();g2.gain.setValueAtTime(.08,n);g2.gain.exponentialRampToValueAtTime(.001,n+dur*.7);
-      o.connect(g);g.connect(ctx.destination);o2.connect(g2);g2.connect(ctx.destination);
-      o.start(n);o.stop(n+dur);o2.start(n);o2.stop(n+dur);
+      // Hammer attack + rich harmonics
+      const mix=ctx.createGain();mix.gain.value=1;
+      [1,2,3,4,5].forEach((h,i)=>{
+        const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq*h;
+        const g=ctx.createGain();
+        const amp=[.25,.12,.06,.03,.015][i];
+        g.gain.setValueAtTime(amp,n);
+        g.gain.setValueAtTime(amp*.7,n+.01); // hammer knock
+        g.gain.exponentialRampToValueAtTime(.001,n+dur*(1-i*.12));
+        o.connect(g);g.connect(mix);o.start(n);o.stop(n+dur);
+      });
+      withReverb(ctx,mix,.8,.25);
     }},
   { id:'violin', name:'Violin',
     synth(ctx,freq,dur){
       const n=ctx.currentTime;
+      const mix=ctx.createGain();mix.gain.value=1;
+      // Rich sawtooth with vibrato + warmth filter
       const o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=freq;
-      const lfo=ctx.createOscillator();lfo.frequency.value=5.5;
-      const lg=ctx.createGain();lg.gain.value=freq*.015;
+      const lfo=ctx.createOscillator();lfo.frequency.value=5.8;
+      const lg=ctx.createGain();lg.gain.value=freq*.02;
       lfo.connect(lg);lg.connect(o.frequency);
-      const g=ctx.createGain();g.gain.setValueAtTime(.001,n);g.gain.linearRampToValueAtTime(.2,n+.08);
-      g.gain.setValueAtTime(.2,n+dur-.1);g.gain.linearRampToValueAtTime(.001,n+dur);
-      o.connect(g);g.connect(ctx.destination);o.start(n);o.stop(n+dur);lfo.start(n);lfo.stop(n+dur);
+      // Warmth: lowpass filter
+      const flt=ctx.createBiquadFilter();flt.type='lowpass';
+      flt.frequency.setValueAtTime(freq*4,n);flt.Q.value=1;
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(.001,n);
+      g.gain.linearRampToValueAtTime(.22,n+.12);
+      g.gain.setValueAtTime(.2,n+dur-.15);
+      g.gain.linearRampToValueAtTime(.001,n+dur);
+      o.connect(flt);flt.connect(g);g.connect(mix);
+      withReverb(ctx,mix,.7,.35);
+      o.start(n);o.stop(n+dur);lfo.start(n);lfo.stop(n+dur);
     }},
   { id:'flute', name:'Flute',
     synth(ctx,freq,dur){
       const n=ctx.currentTime;
+      const mix=ctx.createGain();mix.gain.value=1;
+      // Pure tone + breathy noise
       const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq;
-      const o2=ctx.createOscillator();o2.type='triangle';o2.frequency.value=freq*1.002;
-      const g=ctx.createGain();g.gain.setValueAtTime(.001,n);g.gain.linearRampToValueAtTime(.22,n+.06);
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(.001,n);
+      g.gain.linearRampToValueAtTime(.2,n+.08);
+      g.gain.setValueAtTime(.18,n+dur-.2);
       g.gain.exponentialRampToValueAtTime(.001,n+dur);
-      const g2=ctx.createGain();g2.gain.setValueAtTime(.06,n);g2.gain.exponentialRampToValueAtTime(.001,n+dur*.8);
-      o.connect(g);g.connect(ctx.destination);o2.connect(g2);g2.connect(ctx.destination);
-      o.start(n);o.stop(n+dur);o2.start(n);o2.stop(n+dur);
+      // Breath noise
+      const nLen=Math.ceil(ctx.sampleRate*dur);
+      const nBuf=ctx.createBuffer(1,nLen,ctx.sampleRate);
+      const nD=nBuf.getChannelData(0);
+      for(let i=0;i<nLen;i++)nD[i]=(Math.random()*2-1);
+      const noise=ctx.createBufferSource();noise.buffer=nBuf;
+      const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=freq*2;bp.Q.value=2;
+      const ng=ctx.createGain();ng.gain.setValueAtTime(.04,n);
+      ng.gain.exponentialRampToValueAtTime(.001,n+dur*.6);
+      o.connect(g);g.connect(mix);
+      noise.connect(bp);bp.connect(ng);ng.connect(mix);
+      withReverb(ctx,mix,.6,.4);
+      o.start(n);o.stop(n+dur);noise.start(n);noise.stop(n+dur);
     }},
   { id:'organ', name:'Organ',
     synth(ctx,freq,dur){
       const n=ctx.currentTime;
-      const g=ctx.createGain();g.gain.setValueAtTime(.001,n);g.gain.linearRampToValueAtTime(.15,n+.02);
-      g.gain.setValueAtTime(.15,n+dur-.05);g.gain.linearRampToValueAtTime(.001,n+dur);
-      [1,2,4].forEach((r,i)=>{
-        const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq*r;
-        const og=ctx.createGain();og.gain.value=[.15,.08,.04][i];
-        o.connect(og);og.connect(g);o.start(n);o.stop(n+dur);
+      const mix=ctx.createGain();mix.gain.value=1;
+      // Drawbar organ: multiple harmonics with Leslie-like tremolo
+      const trem=ctx.createOscillator();trem.frequency.value=6;
+      const tremG=ctx.createGain();tremG.gain.value=.08;
+      const masterG=ctx.createGain();
+      masterG.gain.setValueAtTime(.001,n);
+      masterG.gain.linearRampToValueAtTime(1,n+.03);
+      masterG.gain.setValueAtTime(1,n+dur-.06);
+      masterG.gain.linearRampToValueAtTime(.001,n+dur);
+      trem.connect(tremG);tremG.connect(masterG.gain);
+      [1,2,3,4,6,8].forEach((h,i)=>{
+        const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq*h;
+        const g=ctx.createGain();g.gain.value=[.14,.1,.06,.04,.03,.02][i];
+        o.connect(g);g.connect(masterG);o.start(n);o.stop(n+dur);
       });
-      g.connect(ctx.destination);
+      masterG.connect(mix);
+      withReverb(ctx,mix,.7,.3);
+      trem.start(n);trem.stop(n+dur);
     }},
   { id:'bell', name:'Bell',
     synth(ctx,freq,dur){
       const n=ctx.currentTime;
-      [1,2.76,5.4,8.93].forEach((r,i)=>{
+      const mix=ctx.createGain();mix.gain.value=1;
+      // Metallic bell with inharmonic partials
+      [1,2.76,5.4,8.93,13.34].forEach((r,i)=>{
         const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq*r;
-        const g=ctx.createGain();g.gain.setValueAtTime(.18/(i+1),n);
-        g.gain.exponentialRampToValueAtTime(.001,n+dur/(i*.5+1));
-        o.connect(g);g.connect(ctx.destination);o.start(n);o.stop(n+dur);
+        const g=ctx.createGain();
+        const amp=.16/(i+1);
+        g.gain.setValueAtTime(amp,n);
+        g.gain.exponentialRampToValueAtTime(.001,n+dur/(i*.3+1));
+        o.connect(g);g.connect(mix);o.start(n);o.stop(n+dur);
       });
+      withReverb(ctx,mix,.5,.5);
     }},
   { id:'guitar', name:'Guitar',
     synth(ctx,freq,dur){
       const n=ctx.currentTime;
+      const mix=ctx.createGain();mix.gain.value=1;
+      // Plucked string: sharp attack, filtered decay
       const o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=freq;
       const o2=ctx.createOscillator();o2.type='triangle';o2.frequency.value=freq*2;
-      const g=ctx.createGain();g.gain.setValueAtTime(.3,n);g.gain.exponentialRampToValueAtTime(.05,n+.08);
+      const o3=ctx.createOscillator();o3.type='sine';o3.frequency.value=freq*3;
+      // Filter sweeps down (string brightness decays)
+      const flt=ctx.createBiquadFilter();flt.type='lowpass';
+      flt.frequency.setValueAtTime(freq*8,n);
+      flt.frequency.exponentialRampToValueAtTime(freq*1.5,n+dur*.6);
+      flt.Q.value=1.5;
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(.28,n);
+      g.gain.exponentialRampToValueAtTime(.08,n+.06);
       g.gain.exponentialRampToValueAtTime(.001,n+dur);
-      const g2=ctx.createGain();g2.gain.setValueAtTime(.12,n);g2.gain.exponentialRampToValueAtTime(.001,n+dur*.4);
-      o.connect(g);g.connect(ctx.destination);o2.connect(g2);g2.connect(ctx.destination);
-      o.start(n);o.stop(n+dur);o2.start(n);o2.stop(n+dur);
+      const g2=ctx.createGain();g2.gain.setValueAtTime(.1,n);
+      g2.gain.exponentialRampToValueAtTime(.001,n+dur*.5);
+      const g3=ctx.createGain();g3.gain.setValueAtTime(.04,n);
+      g3.gain.exponentialRampToValueAtTime(.001,n+dur*.3);
+      o.connect(g);o2.connect(g2);o3.connect(g3);
+      [g,g2,g3].forEach(x=>x.connect(flt));
+      flt.connect(mix);
+      withReverb(ctx,mix,.75,.25);
+      [o,o2,o3].forEach(x=>{x.start(n);x.stop(n+dur);});
     }},
 ];
 
@@ -824,10 +928,8 @@ function setupGameUI(){
   updateSliderUI();
   updateSubmitState();
 
-  // Restore feedback
-  const fbList=document.getElementById('fbList');
-  fbList.innerHTML='';
-  roundResults.forEach((r,i)=>appendFeedback(r,i));
+  // Render feedback strip
+  renderFbStrip();
 
   // Disable if finished
   setGameEnabled(!gameFinished);
@@ -1010,7 +1112,7 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
   const res={instCorrect:instOk,semitoneDiff:semiDiff,instScore,pitchScore,total,
     guessInst:selectedInst,guessMidi,targetInst:target.instIdx,targetMidi:target.midi};
   roundResults.push(res);
-  appendFeedback(res,currentRound);
+  renderFbStrip();
 
   currentRound++;
   if(currentRound>=TOTAL_ROUNDS){
@@ -1032,19 +1134,34 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
   }
 });
 
-function appendFeedback(res,idx){
-  const tier=res.total>=18?'perfect':res.total>=12?'great':res.total>=6?'ok':'miss';
-  const card=document.createElement('div');card.className=`fb-card fb-${tier}`;
-  const instLabel=res.instCorrect
-    ?`<span style="color:var(--success)">${INSTRUMENTS[res.targetInst].name}</span>`
-    :`<span style="color:var(--error)">${INSTRUMENTS[res.guessInst].name}</span> -> ${INSTRUMENTS[res.targetInst].name}`;
-  const pitchLabel=res.semitoneDiff===0
-    ?`<span style="color:var(--success)">${midiToName(res.targetMidi)}</span>`
-    :`<span style="color:${res.semitoneDiff<=2?'var(--warning)':'var(--error)'}">${midiToName(res.guessMidi)}</span> -> ${midiToName(res.targetMidi)} (${res.semitoneDiff}st)`;
-  card.innerHTML=`<div class="fb-rnd">${idx+1}</div><div class="fb-details"><div class="fb-line"><span>Inst</span><span>${instLabel}</span></div><div class="fb-line"><span>Pitch</span><span>${pitchLabel}</span></div></div><div class="fb-score">${res.total}</div>`;
-  card.style.cursor='pointer';
-  card.onclick=()=>playSynth(res.targetInst,midiToFreq(res.targetMidi),1);
-  document.getElementById('fbList').appendChild(card);
+function renderFbStrip(){
+  const strip=document.getElementById('fbStrip');
+  strip.innerHTML='';
+  for(let i=0;i<TOTAL_ROUNDS;i++){
+    const chip=document.createElement('div');
+    if(i<roundResults.length){
+      const res=roundResults[i];
+      const tier=res.total>=18?'perfect':res.total>=12?'great':res.total>=6?'ok':'miss';
+      chip.className=`fb-chip tier-${tier}`;
+      chip.innerHTML=`<span class="chip-round">R${i+1}</span><span class="chip-score">${res.total}</span>`;
+      // Tooltip with details
+      const instTip=res.instCorrect?INSTRUMENTS[res.targetInst].name:
+        `${INSTRUMENTS[res.guessInst].name} > ${INSTRUMENTS[res.targetInst].name}`;
+      const pitchTip=res.semitoneDiff===0?midiToName(res.targetMidi):
+        `${midiToName(res.guessMidi)} > ${midiToName(res.targetMidi)} (${res.semitoneDiff}st)`;
+      chip.innerHTML+=`<div class="fb-tooltip">${instTip} | ${pitchTip}</div>`;
+      chip.addEventListener('click',()=>{
+        // Toggle tooltip
+        document.querySelectorAll('.fb-chip.show-tip').forEach(c=>{if(c!==chip)c.classList.remove('show-tip');});
+        chip.classList.toggle('show-tip');
+        playSynth(res.targetInst,midiToFreq(res.targetMidi),1);
+      });
+    }else{
+      chip.className='fb-chip empty';
+      chip.innerHTML=`<span>${i+1}</span>`;
+    }
+    strip.appendChild(chip);
+  }
 }
 
 // ============================================================
