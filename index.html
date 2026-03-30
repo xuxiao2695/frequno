@@ -3,18 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FreqUno - Daily Frequency Guessing Game</title>
+<title>FreqUno - Daily Sound Matching Game</title>
 <style>
-/* ============================================================
-   FreqUno - Complete Styles
-   ============================================================ */
 :root {
   --bg: #0a0a14;
   --surface: #14142a;
   --surface2: #1e1e3a;
   --surface3: #2a2a4a;
   --accent: #8b5cf6;
-  --accent2: #a78bfa;
   --accent-glow: rgba(139,92,246,0.3);
   --success: #22c55e;
   --warning: #eab308;
@@ -31,12 +27,10 @@ body{
   background:var(--bg);color:var(--text);
   min-height:100vh;min-height:100dvh;
   display:flex;flex-direction:column;align-items:center;
-  overflow-x:hidden;
+  overflow-x:hidden;-webkit-tap-highlight-color:transparent;
 }
-
-/* --- Header --- */
 header{
-  width:100%;max-width:520px;padding:16px;
+  width:100%;max-width:520px;padding:14px 16px;
   display:flex;justify-content:space-between;align-items:center;
   border-bottom:1px solid var(--border);
 }
@@ -51,7 +45,7 @@ header{
 .icon-btn{
   background:var(--surface);border:1px solid var(--border);color:var(--text-dim);
   width:36px;height:36px;border-radius:8px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-size:0.95rem;
+  display:flex;align-items:center;justify-content:center;font-size:.95rem;
   transition:all .2s;
 }
 .icon-btn:hover{background:var(--surface2);color:var(--text)}
@@ -65,8 +59,6 @@ header{
   display:flex;align-items:center;justify-content:center;
   font-size:.65rem;font-weight:800;color:white;
 }
-
-/* --- Pages --- */
 .page{
   width:100%;max-width:520px;padding:16px;
   display:none;flex-direction:column;gap:14px;
@@ -75,32 +67,33 @@ header{
 .page.active{display:flex}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-/* --- Home Page --- */
-.home-hero{text-align:center;padding:20px 0 8px}
+/* --- Home --- */
+.home-hero{text-align:center;padding:16px 0 8px}
 .home-hero h1{font-size:1.6rem;font-weight:800;margin-bottom:4px}
 .home-hero p{color:var(--text-dim);font-size:.85rem}
-
 .mode-card{
   background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
+  padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
 }
 .mode-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .mode-card .mc-badge{
-  position:absolute;top:12px;right:12px;
-  background:var(--accent);color:white;font-size:.6rem;font-weight:700;
-  padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;
+  position:absolute;top:12px;right:12px;background:var(--accent);color:white;
+  font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:999px;
+  text-transform:uppercase;letter-spacing:.5px;
 }
-.mode-card h3{font-size:1.05rem;margin-bottom:4px}
-.mode-card p{color:var(--text-dim);font-size:.78rem;line-height:1.4}
-.mode-card .mc-icon{font-size:1.8rem;margin-bottom:8px;display:block}
+.mode-card h3{font-size:1rem;margin-bottom:3px}
+.mode-card p{color:var(--text-dim);font-size:.76rem;line-height:1.4}
+.mode-card .mc-icon{font-size:1.6rem;margin-bottom:6px;display:block}
 .mode-card.daily{border-left:3px solid var(--accent)}
 .mode-card.practice{border-left:3px solid var(--success)}
 .mode-card.vs{border-left:3px solid var(--orange)}
 .mode-card.lb{border-left:3px solid var(--warning)}
 
-/* --- Shared Game UI --- */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
-.card-label{font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;text-align:center}
+/* --- Shared --- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.card-label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;text-align:center}
+.back-row{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--text-dim);font-size:.82rem;font-weight:600}
+.back-row:hover{color:var(--text)}
 .round-bar{display:flex;justify-content:center;gap:8px;margin-bottom:4px}
 .r-dot{
   width:30px;height:30px;border-radius:50%;
@@ -114,52 +107,62 @@ header{
 .r-dot.s-ok{border-color:var(--orange);background:rgba(249,115,22,.1);color:var(--orange)}
 .r-dot.s-miss{border-color:var(--error);background:rgba(239,68,68,.1);color:var(--error)}
 
+/* --- Listen / Play buttons --- */
 .play-btn{
   background:var(--accent);color:white;border:none;
-  width:56px;height:56px;border-radius:50%;font-size:1.3rem;
+  width:52px;height:52px;border-radius:50%;font-size:1.1rem;
   cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;
 }
-.play-btn:hover{transform:scale(1.08);box-shadow:0 4px 24px var(--accent-glow)}
+.play-btn:hover{transform:scale(1.08);box-shadow:0 4px 20px var(--accent-glow)}
 .play-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .play-btn.playing{animation:pulsB .6s ease infinite}
-@keyframes pulsB{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 12px transparent}}
+@keyframes pulsB{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 10px transparent}}
 
-.inst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.inst-btn{
-  padding:12px 6px;border-radius:10px;border:2px solid var(--border);
-  background:var(--surface2);color:var(--text-dim);cursor:pointer;
-  transition:all .2s;text-align:center;
+/* --- 3-Slider Panel --- */
+.slider-panel{display:flex;flex-direction:column;gap:16px}
+.param-row{display:flex;flex-direction:column;gap:6px}
+.param-header{display:flex;justify-content:space-between;align-items:baseline}
+.param-name{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.param-value{font-size:.85rem;font-weight:700;font-variant-numeric:tabular-nums}
+.param-track{
+  position:relative;width:100%;height:44px;border-radius:12px;
+  overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none;
+  touch-action:none;
 }
-.inst-btn .inst-name{font-size:.72rem;font-weight:600}
-.inst-btn:hover{background:var(--surface3);color:var(--text)}
-.inst-btn.selected{border-color:var(--accent);background:rgba(139,92,246,.12);color:var(--text);box-shadow:0 0 12px var(--accent-glow)}
+.param-gradient{position:absolute;inset:0;border-radius:12px}
+.param-thumb{
+  position:absolute;top:50%;width:6px;height:34px;background:white;
+  border-radius:3px;transform:translate(-50%,-50%);
+  box-shadow:0 0 8px rgba(0,0,0,.5),0 0 2px rgba(255,255,255,.3);
+  pointer-events:none;transition:left .05s;
+}
+/* Pitch gradient */
+.grad-pitch{background:linear-gradient(90deg,#1e40af,#3b82f6,#06b6d4,#22c55e,#eab308,#f97316,#ef4444,#ec4899)}
+/* Brightness gradient: dark/muffled to bright */
+.grad-bright{background:linear-gradient(90deg,#1a1a2e,#334155,#64748b,#94a3b8,#e2e8f0,#f8fafc)}
+/* Space gradient: dry to wet/spacious */
+.grad-space{background:linear-gradient(90deg,#0f172a,#1e3a5f,#2563eb,#7c3aed,#a78bfa,#c4b5fd)}
 
-.pitch-area{text-align:center}
-.note-display{font-size:2.2rem;font-weight:800;transition:color .2s}
-.freq-display{font-size:.75rem;color:var(--text-dim);margin-bottom:14px;font-variant-numeric:tabular-nums}
-.slider-track{position:relative;width:100%;height:48px;border-radius:12px;overflow:hidden;cursor:pointer;user-select:none;-webkit-user-select:none}
-.slider-gradient{
-  position:absolute;inset:0;border-radius:12px;
-  background:linear-gradient(90deg,#1e40af 0%,#3b82f6 15%,#06b6d4 30%,#22c55e 45%,#eab308 60%,#f97316 75%,#ef4444 90%,#ec4899 100%);
-}
-.slider-thumb{
-  position:absolute;top:50%;width:6px;height:36px;background:white;border-radius:3px;
-  transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(0,0,0,.5);pointer-events:none;transition:left .05s;
-}
-.slider-labels{display:flex;justify-content:space-between;font-size:.6rem;color:var(--text-dim);margin-top:4px;padding:0 2px}
+.param-labels{display:flex;justify-content:space-between;font-size:.55rem;color:var(--text-dim);padding:0 2px}
 
-.bottom-actions{display:flex;gap:8px}
-.btn{
-  flex:1;padding:13px;border-radius:999px;border:none;
-  font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;
+/* Sounding indicator */
+.sound-indicator{
+  display:flex;align-items:center;justify-content:center;gap:3px;
+  height:18px;margin-top:2px;
 }
-.btn-sec{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
-.btn-sec:hover{background:var(--surface3)}
-.btn-pri{background:var(--accent);color:white}
-.btn-pri:hover{box-shadow:0 4px 20px var(--accent-glow)}
-.btn:disabled{opacity:.35;cursor:not-allowed}
+.sound-bar{
+  width:3px;border-radius:2px;background:var(--accent);
+  animation:soundWave .5s ease-in-out infinite alternate;
+}
+.sound-bar:nth-child(1){height:6px;animation-delay:0s}
+.sound-bar:nth-child(2){height:12px;animation-delay:.1s}
+.sound-bar:nth-child(3){height:8px;animation-delay:.2s}
+.sound-bar:nth-child(4){height:14px;animation-delay:.15s}
+.sound-bar:nth-child(5){height:6px;animation-delay:.05s}
+@keyframes soundWave{to{height:4px}}
+.sound-indicator.hidden .sound-bar{animation:none;height:0}
 
-/* --- Feedback: compact inline strip --- */
+/* --- Feedback strip --- */
 .fb-strip{
   display:flex;justify-content:center;gap:6px;
   background:var(--surface);border:1px solid var(--border);
@@ -179,14 +182,11 @@ header{
 .fb-chip.tier-ok{background:var(--orange)}
 .fb-chip.tier-miss{background:var(--error)}
 .fb-chip.empty{background:var(--surface2);border:2px dashed var(--border);color:var(--text-dim);font-size:.65rem}
-
-/* Tooltip on tap */
 .fb-tooltip{
   position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
   background:var(--surface2);border:1px solid var(--border);border-radius:10px;
   padding:8px 12px;white-space:nowrap;font-size:.7rem;font-weight:500;
-  color:var(--text);z-index:10;pointer-events:none;
-  opacity:0;transition:opacity .2s;
+  color:var(--text);z-index:10;pointer-events:none;opacity:0;transition:opacity .2s;
 }
 .fb-tooltip::after{
   content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
@@ -194,62 +194,54 @@ header{
 }
 .fb-chip.show-tip .fb-tooltip{opacity:1}
 
-/* --- VS Mode Specific --- */
-.vs-status{
-  text-align:center;padding:12px;background:var(--surface);
-  border:1px solid var(--border);border-radius:var(--radius);
+/* --- Actions --- */
+.bottom-actions{display:flex;gap:8px}
+.btn{
+  flex:1;padding:13px;border-radius:999px;border:none;
+  font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;
 }
-.vs-status .vs-label{font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.vs-status .vs-players{display:flex;justify-content:center;gap:24px;align-items:center}
+.btn-sec{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn-sec:hover{background:var(--surface3)}
+.btn-pri{background:var(--accent);color:white}
+.btn-pri:hover{box-shadow:0 4px 20px var(--accent-glow)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+
+/* --- VS --- */
+.vs-status{text-align:center;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+.vs-label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.vs-players{display:flex;justify-content:center;gap:24px;align-items:center}
 .vs-player{text-align:center}
-.vs-player .vp-name{font-size:.8rem;font-weight:600}
-.vs-player .vp-score{font-size:1.4rem;font-weight:800;color:var(--accent)}
-.vs-divider{font-size:1.2rem;color:var(--text-dim);font-weight:300}
-
-.code-box{
-  background:var(--surface2);border:1px solid var(--border);border-radius:10px;
-  padding:14px;text-align:center;
-}
+.vs-player .vp-name{font-size:.78rem;font-weight:600}
+.vs-player .vp-score{font-size:1.3rem;font-weight:800;color:var(--accent)}
+.vs-divider{font-size:1.1rem;color:var(--text-dim);font-weight:300}
+.code-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
 .code-box .code-val{font-size:1.8rem;font-weight:800;letter-spacing:4px;color:var(--accent);margin:8px 0}
-.code-box .code-hint{font-size:.72rem;color:var(--text-dim)}
-
+.code-box .code-hint{font-size:.7rem;color:var(--text-dim)}
 .code-input{
   background:var(--surface2);border:2px solid var(--border);border-radius:10px;
   color:var(--text);font-size:1.4rem;font-weight:700;text-align:center;
-  letter-spacing:4px;padding:14px;width:100%;outline:none;
-  transition:border-color .2s;
+  letter-spacing:4px;padding:14px;width:100%;outline:none;transition:border-color .2s;
 }
 .code-input:focus{border-color:var(--accent)}
 .code-input::placeholder{color:var(--text-dim);letter-spacing:2px;font-size:1rem}
 
 /* --- Leaderboard --- */
 .lb-tabs{display:flex;gap:4px;background:var(--surface);border-radius:10px;padding:4px}
-.lb-tab{
-  flex:1;padding:10px;border-radius:8px;border:none;background:transparent;
-  color:var(--text-dim);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;
-}
+.lb-tab{flex:1;padding:10px;border-radius:8px;border:none;background:transparent;color:var(--text-dim);font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s}
 .lb-tab.active{background:var(--accent);color:white}
 .lb-list{display:flex;flex-direction:column;gap:6px}
-.lb-row{
-  display:flex;align-items:center;gap:12px;padding:12px 14px;
-  background:var(--surface);border:1px solid var(--border);border-radius:10px;
-  transition:all .2s;
-}
-.lb-row.me{border-color:var(--accent);background:rgba(139,92,246,.08)}
-.lb-rank{
-  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:800;flex-shrink:0;
-}
+.lb-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+.lb-row.me{border-color:var(--accent);background:rgba(139,92,246,.06)}
+.lb-rank{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0}
 .lb-rank.gold{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#78350f}
 .lb-rank.silver{background:linear-gradient(135deg,#d1d5db,#9ca3af);color:#374151}
 .lb-rank.bronze{background:linear-gradient(135deg,#f97316,#ea580c);color:white}
 .lb-rank.normal{background:var(--surface2);color:var(--text-dim)}
 .lb-info{flex:1}
-.lb-name{font-size:.85rem;font-weight:600}
-.lb-sub{font-size:.65rem;color:var(--text-dim)}
-.lb-pts{font-size:1.1rem;font-weight:800;color:var(--accent)}
+.lb-name{font-size:.82rem;font-weight:600}
+.lb-pts{font-size:1.05rem;font-weight:800;color:var(--accent)}
 
-/* --- Modal --- */
+/* --- Modals --- */
 .modal-overlay{
   position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
   display:flex;align-items:center;justify-content:center;z-index:100;
@@ -258,7 +250,7 @@ header{
 .modal-overlay.active{opacity:1;pointer-events:all}
 .modal{
   background:var(--surface);border:1px solid var(--border);border-radius:18px;
-  padding:28px;max-width:400px;width:90%;text-align:center;
+  padding:26px;max-width:400px;width:90%;text-align:center;
   transform:translateY(20px);transition:transform .3s;
 }
 .modal-overlay.active .modal{transform:translateY(0)}
@@ -276,23 +268,12 @@ header{
 .stat-box{background:var(--surface2);border-radius:10px;padding:10px 6px}
 .stat-val{font-size:1.3rem;font-weight:800;color:var(--accent)}
 .stat-lbl{font-size:.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.share-btn{
-  width:100%;padding:13px;border-radius:999px;border:none;background:var(--accent);
-  color:white;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;
-}
+.share-btn{width:100%;padding:13px;border-radius:999px;border:none;background:var(--accent);color:white;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s}
 .share-btn:hover{box-shadow:0 4px 20px var(--accent-glow)}
 .countdown-line{margin-top:12px;font-size:.75rem;color:var(--text-dim)}
 .countdown-line span{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}
-
-/* --- Name Input Modal --- */
-.name-input{
-  background:var(--surface2);border:2px solid var(--border);border-radius:10px;
-  color:var(--text);font-size:1.1rem;font-weight:600;text-align:center;
-  padding:12px;width:100%;outline:none;margin:12px 0;transition:border-color .2s;
-}
+.name-input{background:var(--surface2);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:1.1rem;font-weight:600;text-align:center;padding:12px;width:100%;outline:none;margin:12px 0;transition:border-color .2s}
 .name-input:focus{border-color:var(--accent)}
-
-/* --- Help --- */
 .help-body{text-align:left}
 .help-body h3{font-size:.9rem;margin:12px 0 6px;color:var(--accent)}
 .help-body p{font-size:.8rem;color:var(--text-dim);line-height:1.5;margin-bottom:6px}
@@ -308,33 +289,11 @@ header{
   opacity:0;pointer-events:none;transition:opacity .2s;
 }
 .countdown-overlay.active{opacity:1;pointer-events:all}
-.cd-text{
-  font-size:4rem;font-weight:900;
-  color:var(--accent);text-transform:uppercase;letter-spacing:4px;
-  animation:cdPop .5s ease;
-}
-@keyframes cdPop{
-  0%{transform:scale(.5);opacity:0}
-  50%{transform:scale(1.15)}
-  100%{transform:scale(1);opacity:1}
-}
+.cd-text{font-size:4rem;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:4px;animation:cdPop .5s ease}
+@keyframes cdPop{0%{transform:scale(.5);opacity:0}50%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
 
-/* Toast */
-.toast{
-  position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);
-  background:var(--surface2);border:1px solid var(--border);color:var(--text);
-  padding:10px 22px;border-radius:999px;font-size:.8rem;font-weight:600;
-  z-index:200;transition:transform .3s;
-}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 22px;border-radius:999px;font-size:.8rem;font-weight:600;z-index:200;transition:transform .3s}
 .toast.show{transform:translateX(-50%) translateY(0)}
-
-.back-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;cursor:pointer;color:var(--text-dim);font-size:.82rem;font-weight:600}
-.back-row:hover{color:var(--text)}
-
-@media(max-width:400px){
-  .inst-grid{gap:6px}
-  .inst-btn{padding:10px 4px}
-}
 </style>
 </head>
 <body>
@@ -354,40 +313,39 @@ header{
 <div class="page active" id="page-home">
   <div class="home-hero">
     <h1>FreqUno</h1>
-    <p>Can you hear the difference?</p>
+    <p>Match the sound. Trust your ears.</p>
   </div>
   <div class="mode-card daily" onclick="startDaily()">
     <span class="mc-badge">New Today</span>
     <span class="mc-icon">&#127925;</span>
     <h3>Daily Challenge</h3>
-    <p>5 mystery sounds. Guess the instrument and pitch. Same puzzle for everyone, every day.</p>
+    <p>5 mystery sounds. Dial in pitch, brightness, and space to match. Same puzzle for everyone.</p>
   </div>
   <div class="mode-card practice" onclick="startPractice()">
     <span class="mc-icon">&#127911;</span>
     <h3>Practice</h3>
-    <p>Unlimited random rounds. Train your ear without pressure. No score tracked.</p>
+    <p>Unlimited random rounds. Train your ears without pressure.</p>
   </div>
   <div class="mode-card vs" onclick="navigate('vs-lobby')">
     <span class="mc-icon">&#9876;</span>
     <h3>Challenge a Friend</h3>
-    <p>Create or join a challenge. Play the same 5 sounds and compare scores.</p>
+    <p>Share a code, play the same sounds, compare accuracy.</p>
   </div>
   <div class="mode-card lb" onclick="navigate('leaderboard')">
     <span class="mc-icon">&#127942;</span>
     <h3>Leaderboard</h3>
-    <p>See how you stack up against other players today and all time.</p>
+    <p>See how you stack up today and all time.</p>
   </div>
 </div>
 
-<!-- ==================== GAME (shared by daily/practice/vs) ==================== -->
+<!-- ==================== GAME ==================== -->
 <div class="page" id="page-game">
   <div class="back-row" onclick="confirmExit()">&#8592; Back</div>
-  <div id="gameModeBanner" style="text-align:center">
-    <span style="font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px" id="gameModeLabel">Daily Challenge</span>
-    <span style="font-size:.7rem;color:var(--text-dim)" id="gameDateLabel"></span>
+  <div style="text-align:center">
+    <span style="font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px" id="gameModeLabel">Daily Challenge</span>
+    <span style="font-size:.68rem;color:var(--text-dim)" id="gameDateLabel"></span>
   </div>
 
-  <!-- VS status bar (hidden unless vs mode) -->
   <div class="vs-status" id="vsStatusBar" style="display:none">
     <div class="vs-label">Challenge Match</div>
     <div class="vs-players">
@@ -399,41 +357,66 @@ header{
 
   <div style="text-align:center">
     <div class="round-bar" id="roundBar"></div>
-    <span style="font-size:.72rem;color:var(--text-dim)">Round <span id="roundNum">1</span> / 5</span>
+    <span style="font-size:.7rem;color:var(--text-dim)">Round <span id="roundNum">1</span> / 5</span>
   </div>
 
+  <!-- Listen -->
   <div class="card">
     <div class="card-label">Target Sound</div>
     <div style="display:flex;justify-content:center;align-items:center;gap:14px">
       <button class="play-btn" id="playTarget" disabled>&#9654;</button>
       <div style="text-align:left">
-        <div style="font-size:.82rem;font-weight:600" id="listenStatus">Preparing...</div>
-        <div style="font-size:.68rem;color:var(--text-dim)" id="listenHint">Auto-plays 2x, then 1 replay</div>
+        <div style="font-size:.82rem;font-weight:600" id="listenStatus">Tap to listen</div>
+        <div style="font-size:.66rem;color:var(--text-dim)" id="listenHint">Plays 2x, then 1 replay</div>
       </div>
     </div>
   </div>
 
-  <div class="card" id="instCard">
-    <div class="card-label">Choose Instrument</div>
-    <div class="inst-grid" id="instGrid"></div>
-  </div>
-
-  <div class="card" id="pitchCard">
-    <div class="card-label">Adjust Pitch</div>
-    <div class="pitch-area">
-      <div class="note-display" id="noteDisp">--</div>
-      <div class="freq-display" id="freqDisp">--- Hz</div>
-      <div class="slider-track" id="sliderTrack">
-        <div class="slider-gradient"></div>
-        <div class="slider-thumb" id="sliderThumb"></div>
+  <!-- 3 Sliders -->
+  <div class="card" id="sliderCard">
+    <div class="card-label">Dial it in &mdash; drag to hear live</div>
+    <div class="sound-indicator hidden" id="soundIndicator">
+      <div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div><div class="sound-bar"></div>
+    </div>
+    <div class="slider-panel">
+      <div class="param-row">
+        <div class="param-header">
+          <span class="param-name" style="color:#06b6d4">Pitch</span>
+          <span class="param-value" id="pitchVal">C4</span>
+        </div>
+        <div class="param-track" id="trackPitch">
+          <div class="param-gradient grad-pitch"></div>
+          <div class="param-thumb" id="thumbPitch"></div>
+        </div>
+        <div class="param-labels"><span>Low</span><span>High</span></div>
       </div>
-      <div class="slider-labels"><span>C3</span><span>C4</span><span>C5</span><span>C6</span></div>
+      <div class="param-row">
+        <div class="param-header">
+          <span class="param-name" style="color:#94a3b8">Brightness</span>
+          <span class="param-value" id="brightVal">50%</span>
+        </div>
+        <div class="param-track" id="trackBright">
+          <div class="param-gradient grad-bright"></div>
+          <div class="param-thumb" id="thumbBright"></div>
+        </div>
+        <div class="param-labels"><span>Dark / Muffled</span><span>Bright / Sharp</span></div>
+      </div>
+      <div class="param-row">
+        <div class="param-header">
+          <span class="param-name" style="color:#a78bfa">Space</span>
+          <span class="param-value" id="spaceVal">20%</span>
+        </div>
+        <div class="param-track" id="trackSpace">
+          <div class="param-gradient grad-space"></div>
+          <div class="param-thumb" id="thumbSpace"></div>
+        </div>
+        <div class="param-labels"><span>Dry / Close</span><span>Wet / Spacious</span></div>
+      </div>
     </div>
   </div>
 
   <div class="bottom-actions">
-    <button class="btn btn-sec" id="previewBtn">Preview</button>
-    <button class="btn btn-pri" id="submitBtn" disabled>Submit</button>
+    <button class="btn btn-pri" id="submitBtn" disabled>Submit Guess</button>
   </div>
 
   <div class="fb-strip" id="fbStrip"></div>
@@ -446,13 +429,10 @@ header{
     <h2 style="font-size:1.2rem">Challenge a Friend</h2>
     <p style="color:var(--text-dim);font-size:.82rem;margin-top:4px">Create a challenge or enter a friend's code</p>
   </div>
-
   <div class="card" style="text-align:center">
     <div class="card-label">Create New Challenge</div>
-    <p style="font-size:.78rem;color:var(--text-dim);margin-bottom:12px">Generate a code and share it with your friend</p>
     <button class="btn btn-pri" style="max-width:220px;margin:0 auto" onclick="createChallenge()">Generate Code</button>
   </div>
-
   <div class="card" id="generatedCodeCard" style="display:none">
     <div class="card-label">Your Challenge Code</div>
     <div class="code-box">
@@ -464,7 +444,6 @@ header{
       <button class="btn btn-pri" onclick="playChallenge(generatedSeed)">Play Now</button>
     </div>
   </div>
-
   <div class="card" style="text-align:center">
     <div class="card-label">Join a Challenge</div>
     <input class="code-input" id="joinCodeInput" placeholder="Enter code" maxlength="6">
@@ -475,9 +454,7 @@ header{
 <!-- ==================== LEADERBOARD ==================== -->
 <div class="page" id="page-leaderboard">
   <div class="back-row" onclick="navigate('home')">&#8592; Back</div>
-  <div style="text-align:center;padding:4px 0">
-    <h2 style="font-size:1.2rem">Leaderboard</h2>
-  </div>
+  <div style="text-align:center;padding:4px 0"><h2 style="font-size:1.2rem">Leaderboard</h2></div>
   <div class="lb-tabs">
     <button class="lb-tab active" onclick="switchLbTab('today',this)">Today</button>
     <button class="lb-tab" onclick="switchLbTab('week',this)">This Week</button>
@@ -487,7 +464,6 @@ header{
 </div>
 
 <!-- ==================== MODALS ==================== -->
-<!-- Result Modal -->
 <div class="modal-overlay" id="resultModal">
   <div class="modal">
     <h2 id="resTitle">Your Score</h2>
@@ -498,10 +474,9 @@ header{
     </div>
     <div class="stats-row" id="resultStats">
       <div class="stat-box"><div class="stat-val" id="stPlayed">0</div><div class="stat-lbl">Played</div></div>
-      <div class="stat-box"><div class="stat-val" id="stAvg">0</div><div class="stat-lbl">Avg Score</div></div>
+      <div class="stat-box"><div class="stat-val" id="stAvg">0</div><div class="stat-lbl">Avg</div></div>
       <div class="stat-box"><div class="stat-val" id="stBest">0</div><div class="stat-lbl">Best</div></div>
     </div>
-    <!-- VS result -->
     <div id="vsResultBlock" style="display:none;margin-bottom:14px">
       <div class="vs-status" style="border:none;padding:8px">
         <div class="vs-players">
@@ -517,7 +492,6 @@ header{
   </div>
 </div>
 
-<!-- Name Modal -->
 <div class="modal-overlay" id="nameModal">
   <div class="modal">
     <h2>Your Name</h2>
@@ -527,27 +501,27 @@ header{
   </div>
 </div>
 
-<!-- Help Modal -->
 <div class="modal-overlay" id="helpModal">
   <div class="modal">
     <h2>How to Play</h2>
     <div class="help-body">
       <h3>Goal</h3>
-      <p>Identify the <strong>instrument</strong> and match the <strong>pitch</strong> of each mystery sound.</p>
-      <h3>Modes</h3>
-      <p><strong>Daily Challenge</strong> - 5 rounds, same for everyone. Score tracked on leaderboard.</p>
-      <p><strong>Practice</strong> - Unlimited random rounds. No pressure.</p>
-      <p><strong>Challenge Friend</strong> - Share a code so you both play the same 5 sounds. Compare scores!</p>
-      <h3>Listening</h3>
-      <p>Each round auto-plays the target sound <strong>2 times</strong>. After that you get <strong>1 replay</strong>. Use it wisely!</p>
-      <h3>Scoring (per round, max 20)</h3>
-      <p>Correct instrument = <strong>+10</strong> | Pitch accuracy = <strong>0-10</strong> (within 1 semitone = 10)</p>
-      <h3>Feedback Colors</h3>
+      <p>Listen to a mystery sound, then recreate it using three sliders.</p>
+      <h3>The Three Dimensions</h3>
+      <p><strong>Pitch</strong> -- How high or low the note is (like hue in color).</p>
+      <p><strong>Brightness</strong> -- How muffled or sharp the tone is (like saturation).</p>
+      <p><strong>Space</strong> -- How dry/close or wet/spacious it sounds (like value/brightness).</p>
+      <h3>How It Works</h3>
+      <p>1. Tap play to hear the target sound (2x, then 1 replay).</p>
+      <p>2. Drag any slider to hear your version <strong>live</strong> -- it plays while you drag!</p>
+      <p>3. Match your memory of the target. Submit when ready.</p>
+      <h3>Scoring (20 per round, 100 max)</h3>
+      <p>Each dimension scores 0-7 based on accuracy. Closer = more points.</p>
       <div class="legend">
-        <div class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>18-20</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--warning)"></span>12-17</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>6-11</div>
-        <div class="legend-item"><span class="legend-dot" style="background:var(--error)"></span>0-5</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>17-20</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--warning)"></span>12-16</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>7-11</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--error)"></span>0-6</div>
       </div>
     </div>
     <button class="btn btn-pri" style="width:100%;margin-top:14px" onclick="closeModal('helpModal')">Got it</button>
@@ -559,11 +533,10 @@ header{
 
 <script>
 // ============================================================
-// FreqUno - Complete Game Logic
-// Modes: Daily, Practice, VS Friend, Leaderboard
+// FreqUno v2 - Three-Slider Sound Matching Game
+// Dimensions: Pitch (freq), Brightness (filter), Space (reverb)
 // ============================================================
 
-// -- Constants --
 const TOTAL_ROUNDS = 5;
 const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const MIDI_MIN = 48; // C3
@@ -571,205 +544,186 @@ const MIDI_MAX = 84; // C6
 const MIDI_RANGE = MIDI_MAX - MIDI_MIN;
 
 function midiToFreq(m){ return 440 * Math.pow(2, (m - 69) / 12); }
-function freqToMidi(f){ return 69 + 12 * Math.log2(f / 440); }
 function midiToName(m){ return NOTE_NAMES[m % 12] + (Math.floor(m / 12) - 1); }
 
-// -- Reverb (shared convolver for warmth) --
-let reverbNode = null;
-function getReverb(ctx){
-  if(reverbNode) return reverbNode;
-  const len = ctx.sampleRate * 1.5;
-  const buf = ctx.createBuffer(2, len, ctx.sampleRate);
-  for(let ch=0;ch<2;ch++){
-    const d = buf.getChannelData(ch);
-    for(let i=0;i<len;i++){
-      d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.5);
-    }
-  }
-  reverbNode = ctx.createConvolver();
-  reverbNode.buffer = buf;
-  return reverbNode;
-}
-
-// Route through reverb: dry/wet mix
-function withReverb(ctx, source, dryLevel, wetLevel){
-  const dry = ctx.createGain(); dry.gain.value = dryLevel;
-  const wet = ctx.createGain(); wet.gain.value = wetLevel;
-  const rev = getReverb(ctx);
-  source.connect(dry); dry.connect(ctx.destination);
-  source.connect(rev); rev.connect(wet); wet.connect(ctx.destination);
-  return dry;
-}
-
-// -- Instruments (richer synthesis with reverb) --
-const INSTRUMENTS = [
-  { id:'piano', name:'Piano',
-    synth(ctx,freq,dur){
-      const n=ctx.currentTime;
-      // Hammer attack + rich harmonics
-      const mix=ctx.createGain();mix.gain.value=1;
-      [1,2,3,4,5].forEach((h,i)=>{
-        const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq*h;
-        const g=ctx.createGain();
-        const amp=[.25,.12,.06,.03,.015][i];
-        g.gain.setValueAtTime(amp,n);
-        g.gain.setValueAtTime(amp*.7,n+.01); // hammer knock
-        g.gain.exponentialRampToValueAtTime(.001,n+dur*(1-i*.12));
-        o.connect(g);g.connect(mix);o.start(n);o.stop(n+dur);
-      });
-      withReverb(ctx,mix,.8,.25);
-    }},
-  { id:'violin', name:'Violin',
-    synth(ctx,freq,dur){
-      const n=ctx.currentTime;
-      const mix=ctx.createGain();mix.gain.value=1;
-      // Rich sawtooth with vibrato + warmth filter
-      const o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=freq;
-      const lfo=ctx.createOscillator();lfo.frequency.value=5.8;
-      const lg=ctx.createGain();lg.gain.value=freq*.02;
-      lfo.connect(lg);lg.connect(o.frequency);
-      // Warmth: lowpass filter
-      const flt=ctx.createBiquadFilter();flt.type='lowpass';
-      flt.frequency.setValueAtTime(freq*4,n);flt.Q.value=1;
-      const g=ctx.createGain();
-      g.gain.setValueAtTime(.001,n);
-      g.gain.linearRampToValueAtTime(.22,n+.12);
-      g.gain.setValueAtTime(.2,n+dur-.15);
-      g.gain.linearRampToValueAtTime(.001,n+dur);
-      o.connect(flt);flt.connect(g);g.connect(mix);
-      withReverb(ctx,mix,.7,.35);
-      o.start(n);o.stop(n+dur);lfo.start(n);lfo.stop(n+dur);
-    }},
-  { id:'flute', name:'Flute',
-    synth(ctx,freq,dur){
-      const n=ctx.currentTime;
-      const mix=ctx.createGain();mix.gain.value=1;
-      // Pure tone + breathy noise
-      const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq;
-      const g=ctx.createGain();
-      g.gain.setValueAtTime(.001,n);
-      g.gain.linearRampToValueAtTime(.2,n+.08);
-      g.gain.setValueAtTime(.18,n+dur-.2);
-      g.gain.exponentialRampToValueAtTime(.001,n+dur);
-      // Breath noise
-      const nLen=Math.ceil(ctx.sampleRate*dur);
-      const nBuf=ctx.createBuffer(1,nLen,ctx.sampleRate);
-      const nD=nBuf.getChannelData(0);
-      for(let i=0;i<nLen;i++)nD[i]=(Math.random()*2-1);
-      const noise=ctx.createBufferSource();noise.buffer=nBuf;
-      const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=freq*2;bp.Q.value=2;
-      const ng=ctx.createGain();ng.gain.setValueAtTime(.04,n);
-      ng.gain.exponentialRampToValueAtTime(.001,n+dur*.6);
-      o.connect(g);g.connect(mix);
-      noise.connect(bp);bp.connect(ng);ng.connect(mix);
-      withReverb(ctx,mix,.6,.4);
-      o.start(n);o.stop(n+dur);noise.start(n);noise.stop(n+dur);
-    }},
-  { id:'organ', name:'Organ',
-    synth(ctx,freq,dur){
-      const n=ctx.currentTime;
-      const mix=ctx.createGain();mix.gain.value=1;
-      // Drawbar organ: multiple harmonics with Leslie-like tremolo
-      const trem=ctx.createOscillator();trem.frequency.value=6;
-      const tremG=ctx.createGain();tremG.gain.value=.08;
-      const masterG=ctx.createGain();
-      masterG.gain.setValueAtTime(.001,n);
-      masterG.gain.linearRampToValueAtTime(1,n+.03);
-      masterG.gain.setValueAtTime(1,n+dur-.06);
-      masterG.gain.linearRampToValueAtTime(.001,n+dur);
-      trem.connect(tremG);tremG.connect(masterG.gain);
-      [1,2,3,4,6,8].forEach((h,i)=>{
-        const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq*h;
-        const g=ctx.createGain();g.gain.value=[.14,.1,.06,.04,.03,.02][i];
-        o.connect(g);g.connect(masterG);o.start(n);o.stop(n+dur);
-      });
-      masterG.connect(mix);
-      withReverb(ctx,mix,.7,.3);
-      trem.start(n);trem.stop(n+dur);
-    }},
-  { id:'bell', name:'Bell',
-    synth(ctx,freq,dur){
-      const n=ctx.currentTime;
-      const mix=ctx.createGain();mix.gain.value=1;
-      // Metallic bell with inharmonic partials
-      [1,2.76,5.4,8.93,13.34].forEach((r,i)=>{
-        const o=ctx.createOscillator();o.type='sine';o.frequency.value=freq*r;
-        const g=ctx.createGain();
-        const amp=.16/(i+1);
-        g.gain.setValueAtTime(amp,n);
-        g.gain.exponentialRampToValueAtTime(.001,n+dur/(i*.3+1));
-        o.connect(g);g.connect(mix);o.start(n);o.stop(n+dur);
-      });
-      withReverb(ctx,mix,.5,.5);
-    }},
-  { id:'guitar', name:'Guitar',
-    synth(ctx,freq,dur){
-      const n=ctx.currentTime;
-      const mix=ctx.createGain();mix.gain.value=1;
-      // Plucked string: sharp attack, filtered decay
-      const o=ctx.createOscillator();o.type='sawtooth';o.frequency.value=freq;
-      const o2=ctx.createOscillator();o2.type='triangle';o2.frequency.value=freq*2;
-      const o3=ctx.createOscillator();o3.type='sine';o3.frequency.value=freq*3;
-      // Filter sweeps down (string brightness decays)
-      const flt=ctx.createBiquadFilter();flt.type='lowpass';
-      flt.frequency.setValueAtTime(freq*8,n);
-      flt.frequency.exponentialRampToValueAtTime(freq*1.5,n+dur*.6);
-      flt.Q.value=1.5;
-      const g=ctx.createGain();
-      g.gain.setValueAtTime(.28,n);
-      g.gain.exponentialRampToValueAtTime(.08,n+.06);
-      g.gain.exponentialRampToValueAtTime(.001,n+dur);
-      const g2=ctx.createGain();g2.gain.setValueAtTime(.1,n);
-      g2.gain.exponentialRampToValueAtTime(.001,n+dur*.5);
-      const g3=ctx.createGain();g3.gain.setValueAtTime(.04,n);
-      g3.gain.exponentialRampToValueAtTime(.001,n+dur*.3);
-      o.connect(g);o2.connect(g2);o3.connect(g3);
-      [g,g2,g3].forEach(x=>x.connect(flt));
-      flt.connect(mix);
-      withReverb(ctx,mix,.75,.25);
-      [o,o2,o3].forEach(x=>{x.start(n);x.stop(n+dur);});
-    }},
-];
-
-// -- Audio --
-let audioCtx=null;
+// ============================================================
+// Audio Engine - Sustained synth with live parameter control
+// ============================================================
+let audioCtx = null;
 function getCtx(){
-  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  if(audioCtx.state==='suspended') audioCtx.resume();
+  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if(audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
 }
-function playSynth(idx,freq,dur=1){INSTRUMENTS[idx].synth(getCtx(),freq,dur);}
 
-// -- RNG --
+// Reverb impulse (created once)
+let reverbConv = null;
+function getReverbNode(ctx){
+  if(reverbConv) return reverbConv;
+  const len = ctx.sampleRate * 2;
+  const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+  for(let ch = 0; ch < 2; ch++){
+    const d = buf.getChannelData(ch);
+    for(let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.2);
+  }
+  reverbConv = ctx.createConvolver();
+  reverbConv.buffer = buf;
+  return reverbConv;
+}
+
+// Live synth: a sustained oscillator + filter + reverb that can be updated in real-time
+let liveSynth = null;
+
+function startLiveSynth(pitch, brightness, space){
+  const ctx = getCtx();
+  stopLiveSynth();
+
+  const freq = midiToFreq(pitch);
+  // Sawtooth for rich harmonics that the filter can shape
+  const osc = ctx.createOscillator();
+  osc.type = 'sawtooth';
+  osc.frequency.value = freq;
+
+  // Sub oscillator for warmth
+  const sub = ctx.createOscillator();
+  sub.type = 'sine';
+  sub.frequency.value = freq;
+
+  const subGain = ctx.createGain();
+  subGain.gain.value = 0.15;
+
+  // Brightness = lowpass filter cutoff (200 Hz to 8000 Hz)
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 200 + brightness * 7800;
+  filter.Q.value = 0.7 + brightness * 2;
+
+  // Mix node
+  const mix = ctx.createGain();
+  mix.gain.value = 0.22;
+
+  // Dry/wet for reverb
+  const dryGain = ctx.createGain();
+  const wetGain = ctx.createGain();
+  dryGain.gain.value = 1 - space * 0.6;
+  wetGain.gain.value = space * 0.8;
+
+  osc.connect(filter);
+  sub.connect(subGain);
+  subGain.connect(filter);
+  filter.connect(mix);
+
+  mix.connect(dryGain);
+  dryGain.connect(ctx.destination);
+
+  const reverb = getReverbNode(ctx);
+  mix.connect(reverb);
+  reverb.connect(wetGain);
+  wetGain.connect(ctx.destination);
+
+  osc.start();
+  sub.start();
+
+  liveSynth = { osc, sub, filter, mix, dryGain, wetGain, subGain };
+}
+
+function updateLiveSynth(pitch, brightness, space){
+  if(!liveSynth) return;
+  const ctx = getCtx();
+  const freq = midiToFreq(pitch);
+  const now = ctx.currentTime;
+
+  liveSynth.osc.frequency.setTargetAtTime(freq, now, 0.03);
+  liveSynth.sub.frequency.setTargetAtTime(freq, now, 0.03);
+  liveSynth.filter.frequency.setTargetAtTime(200 + brightness * 7800, now, 0.03);
+  liveSynth.filter.Q.setTargetAtTime(0.7 + brightness * 2, now, 0.03);
+  liveSynth.dryGain.gain.setTargetAtTime(1 - space * 0.6, now, 0.03);
+  liveSynth.wetGain.gain.setTargetAtTime(space * 0.8, now, 0.03);
+}
+
+function stopLiveSynth(){
+  if(!liveSynth) return;
+  try{
+    const ctx = getCtx();
+    const now = ctx.currentTime;
+    liveSynth.mix.gain.setTargetAtTime(0, now, 0.05);
+    const s = liveSynth;
+    setTimeout(()=>{ try{s.osc.stop();s.sub.stop();}catch(e){} }, 200);
+  }catch(e){}
+  liveSynth = null;
+}
+
+// Play a fixed-duration sound with given params (for target playback)
+function playFixed(pitch, brightness, space, dur){
+  const ctx = getCtx();
+  const freq = midiToFreq(pitch);
+  const now = ctx.currentTime;
+
+  const osc = ctx.createOscillator();
+  osc.type = 'sawtooth';
+  osc.frequency.value = freq;
+
+  const sub = ctx.createOscillator();
+  sub.type = 'sine';
+  sub.frequency.value = freq;
+  const subG = ctx.createGain(); subG.gain.value = 0.15;
+
+  const flt = ctx.createBiquadFilter();
+  flt.type = 'lowpass';
+  flt.frequency.value = 200 + brightness * 7800;
+  flt.Q.value = 0.7 + brightness * 2;
+
+  const env = ctx.createGain();
+  env.gain.setValueAtTime(0.001, now);
+  env.gain.linearRampToValueAtTime(0.22, now + 0.06);
+  env.gain.setValueAtTime(0.22, now + dur - 0.1);
+  env.gain.linearRampToValueAtTime(0.001, now + dur);
+
+  const dryG = ctx.createGain(); dryG.gain.value = 1 - space * 0.6;
+  const wetG = ctx.createGain(); wetG.gain.value = space * 0.8;
+
+  osc.connect(flt);
+  sub.connect(subG); subG.connect(flt);
+  flt.connect(env);
+  env.connect(dryG); dryG.connect(ctx.destination);
+  const rev = getReverbNode(ctx);
+  env.connect(rev); rev.connect(wetG); wetG.connect(ctx.destination);
+
+  osc.start(now); osc.stop(now + dur);
+  sub.start(now); sub.stop(now + dur);
+}
+
+// ============================================================
+// RNG / Utils
+// ============================================================
 function hashStr(s){let h=0;for(let i=0;i<s.length;i++)h=Math.imul(31,h)+s.charCodeAt(i)|0;return h}
 function makeRng(seed){let s=Math.abs(seed)||1;return()=>{s=(s*16807)%2147483647;return(s-1)/2147483646}}
-function todayStr(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function todayStr(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 
 function generateRounds(seed){
-  const rng=makeRng(seed);
-  const rounds=[];
-  for(let i=0;i<TOTAL_ROUNDS;i++){
-    rounds.push({instIdx:Math.floor(rng()*INSTRUMENTS.length),midi:MIDI_MIN+Math.floor(rng()*(MIDI_RANGE+1))});
+  const rng = makeRng(seed);
+  const rounds = [];
+  for(let i = 0; i < TOTAL_ROUNDS; i++){
+    rounds.push({
+      pitch: MIDI_MIN + Math.floor(rng() * (MIDI_RANGE + 1)),
+      brightness: 0.1 + rng() * 0.8,  // 0.1-0.9 range
+      space: rng() * 0.9,             // 0-0.9 range
+    });
   }
   return rounds;
 }
 
-// -- Seed to 6-char code & back --
+// Code system
 function seedToCode(seed){
-  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let n=Math.abs(seed);
-  let code='';
-  for(let i=0;i<6;i++){code+=chars[n%chars.length];n=Math.floor(n/chars.length)+i*7;}
+  const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let n=Math.abs(seed),code='';
+  for(let i=0;i<6;i++){code+=ch[n%ch.length];n=Math.floor(n/ch.length)+i*7;}
   return code;
 }
 function codeToSeed(code){
-  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let n=0;
-  for(let i=code.length-1;i>=0;i--){
-    const idx=chars.indexOf(code[i]);
-    if(idx<0)return 0;
-    n=n*chars.length+idx;
-  }
+  const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let n=0;for(let i=code.length-1;i>=0;i--){const idx=ch.indexOf(code[i]);if(idx<0)return 0;n=n*ch.length+idx;}
   return n||hashStr(code);
 }
 
@@ -778,362 +732,313 @@ function codeToSeed(code){
 // ============================================================
 const TODAY = todayStr();
 let playerName = localStorage.getItem('fq_name') || '';
-let currentMode = null; // 'daily','practice','vs'
+let currentMode = null;
 let gameRounds = [];
 let currentRound = 0;
-let selectedInst = -1;
-let sliderMidi = (MIDI_MIN+MIDI_MAX)/2;
 let roundResults = [];
 let gameFinished = false;
-let replaysLeft = 0;
-let isAutoPlaying = false;
 let hasHeardThisRound = false;
-let vsSeed = 0;
+let replaysLeft = 0;
+let isPlaying = false;
 let generatedSeed = 0;
+let vsSeed = 0;
 
-// -- Persistence --
+// User slider values (0-1 normalized)
+let userPitch = 0.5;    // maps to MIDI
+let userBright = 0.5;   // 0-1
+let userSpace = 0.2;    // 0-1
+let isDragging = false;
+let activeSlider = null;
+
+// ============================================================
+// Persistence
+// ============================================================
 function loadDaily(){
-  try{
-    const s=JSON.parse(localStorage.getItem('fq_daily'));
+  try{const s=JSON.parse(localStorage.getItem('fq2_daily'));
     if(s&&s.date===TODAY){currentRound=s.cr||0;roundResults=s.rr||[];gameFinished=s.gf||false;return true;}
-  }catch(e){}
-  return false;
+  }catch(e){}return false;
 }
 function saveDaily(){
-  localStorage.setItem('fq_daily',JSON.stringify({date:TODAY,cr:currentRound,rr:roundResults,gf:gameFinished}));
+  localStorage.setItem('fq2_daily',JSON.stringify({date:TODAY,cr:currentRound,rr:roundResults,gf:gameFinished}));
 }
-function loadStats(){
-  try{return JSON.parse(localStorage.getItem('fq_stats'))||{played:0,totalScore:0,best:0,history:[]};}
-  catch(e){return{played:0,totalScore:0,best:0,history:[]};}
-}
-function saveStats(st){localStorage.setItem('fq_stats',JSON.stringify(st));}
-
-function loadVsResults(){
-  try{return JSON.parse(localStorage.getItem('fq_vs'))||{};}catch(e){return{};}
-}
-function saveVsResult(code,score,name){
-  const vs=loadVsResults();
-  if(!vs[code])vs[code]={scores:[]};
-  vs[code].scores.push({name:name||'Anonymous',score,date:TODAY});
-  localStorage.setItem('fq_vs',JSON.stringify(vs));
-}
-
-// -- Navigation --
-function navigate(pageId){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const target=document.getElementById('page-'+pageId);
-  if(target)target.classList.add('active');
-  if(pageId==='leaderboard')renderLeaderboard('today');
-}
-
-// -- Name --
-function showNameModal(){
-  document.getElementById('nameInput').value=playerName;
-  document.getElementById('nameModal').classList.add('active');
-}
-function saveName(){
-  const v=document.getElementById('nameInput').value.trim();
-  if(v){playerName=v;localStorage.setItem('fq_name',v);updatePlayerTag();closeModal('nameModal');}
-}
-function updatePlayerTag(){
-  document.getElementById('playerName').textContent=playerName||'Set Name';
-  document.getElementById('playerAvatar').textContent=playerName?playerName[0].toUpperCase():'?';
-}
-
-// -- Game Init --
-function startDaily(){
-  if(!playerName){showNameModal();showToast('Set your name first!');return;}
-  currentMode='daily';
-  gameRounds=generateRounds(hashStr(TODAY));
-  const restored=loadDaily();
-  if(!restored){currentRound=0;roundResults=[];gameFinished=false;}
-  selectedInst=-1;sliderMidi=(MIDI_MIN+MIDI_MAX)/2;
-  setupGameUI();
-  navigate('game');
-  if(gameFinished)setTimeout(()=>showResult(roundResults.reduce((a,r)=>a+r.total,0)),400);
-}
-
-function startPractice(){
-  currentMode='practice';
-  const seed=Date.now();
-  gameRounds=generateRounds(seed);
-  currentRound=0;roundResults=[];gameFinished=false;
-  selectedInst=-1;sliderMidi=(MIDI_MIN+MIDI_MAX)/2;
-  setupGameUI();
-  navigate('game');
-}
-
-function playChallenge(seed){
-  if(!playerName){showNameModal();showToast('Set your name first!');return;}
-  currentMode='vs';vsSeed=seed;
-  gameRounds=generateRounds(seed);
-  currentRound=0;roundResults=[];gameFinished=false;
-  selectedInst=-1;sliderMidi=(MIDI_MIN+MIDI_MAX)/2;
-  setupGameUI();
-  navigate('game');
-}
-
-function createChallenge(){
-  generatedSeed=hashStr(TODAY+'-'+Date.now()+'-'+Math.random());
-  const code=seedToCode(generatedSeed);
-  document.getElementById('generatedCode').textContent=code;
-  document.getElementById('generatedCodeCard').style.display='';
-}
-function copyCode(){
-  const code=document.getElementById('generatedCode').textContent;
-  navigator.clipboard.writeText(code).then(()=>showToast('Code copied!'));
-}
-function joinChallenge(){
-  const code=document.getElementById('joinCodeInput').value.trim().toUpperCase();
-  if(code.length<4){showToast('Enter a valid code');return;}
-  const seed=codeToSeed(code);
-  vsSeed=seed;
-  playChallenge(seed);
-}
-
-function confirmExit(){
-  if(gameFinished||currentMode==='practice'||roundResults.length===0){navigate('home');return;}
-  if(confirm('Leave game? Your progress is saved for Daily.')){navigate('home');}
-}
+function loadStats(){try{return JSON.parse(localStorage.getItem('fq2_stats'))||{played:0,totalScore:0,best:0,history:[]};}catch(e){return{played:0,totalScore:0,best:0,history:[]};}}
+function saveStats(st){localStorage.setItem('fq2_stats',JSON.stringify(st))}
+function loadVs(){try{return JSON.parse(localStorage.getItem('fq2_vs'))||{};}catch(e){return{};}}
+function saveVsResult(code,score,name){const vs=loadVs();if(!vs[code])vs[code]={scores:[]};vs[code].scores.push({name,score,date:TODAY});localStorage.setItem('fq2_vs',JSON.stringify(vs));}
 
 // ============================================================
-// Game UI
+// Navigation & Utils
 // ============================================================
-function setupGameUI(){
-  // Labels
-  const labels={daily:'Daily Challenge',practice:'Practice Mode',vs:'Challenge Match'};
-  document.getElementById('gameModeLabel').textContent=labels[currentMode];
-  document.getElementById('gameDateLabel').textContent=currentMode==='daily'?' -- '+TODAY:'';
-  document.getElementById('vsStatusBar').style.display=currentMode==='vs'?'':'none';
-  if(currentMode==='vs'){
-    document.getElementById('vsP1Name').textContent=playerName||'You';
-    document.getElementById('vsP2Name').textContent='Friend';
-    document.getElementById('vsP1Score').textContent='0';
-    document.getElementById('vsP2Score').textContent='--';
-    // Check if friend already played
-    const code=seedToCode(vsSeed);
-    const vsData=loadVsResults()[code];
-    if(vsData&&vsData.scores.length>0){
-      const friend=vsData.scores.find(s=>s.name!==playerName);
-      if(friend){
-        document.getElementById('vsP2Name').textContent=friend.name;
-        document.getElementById('vsP2Score').textContent=friend.score;
-      }
-    }
-  }
-
-  // Render
-  renderRoundBar();
-  renderInstGrid();
-  updateSliderUI();
-  updateSubmitState();
-
-  // Render feedback strip
-  renderFbStrip();
-
-  // Disable if finished
-  setGameEnabled(!gameFinished);
-
-  // Reset listen state for current round
-  replaysLeft=0;
-  hasHeardThisRound=false;
-  updateListenUI();
-}
-
-function renderRoundBar(){
-  const bar=document.getElementById('roundBar');
-  bar.innerHTML='';
-  for(let i=0;i<TOTAL_ROUNDS;i++){
-    const d=document.createElement('div');d.className='r-dot';
-    if(i<roundResults.length){
-      const t=roundResults[i].total;
-      d.className+=' '+(t>=18?'s-perfect':t>=12?'s-great':t>=6?'s-ok':'s-miss');
-      d.textContent=t;
-    } else if(i===currentRound&&!gameFinished){
-      d.className+=' active';d.textContent=i+1;
-    } else {
-      d.textContent=i+1;
-    }
-    bar.appendChild(d);
-  }
-  document.getElementById('roundNum').textContent=Math.min(currentRound+1,TOTAL_ROUNDS);
-}
-
-function renderInstGrid(){
-  const grid=document.getElementById('instGrid');grid.innerHTML='';
-  INSTRUMENTS.forEach((inst,i)=>{
-    const btn=document.createElement('button');
-    btn.className='inst-btn'+(i===selectedInst?' selected':'');
-    btn.innerHTML=`<span class="inst-name">${inst.name}</span>`;
-    btn.onclick=()=>{
-      if(gameFinished)return;
-      selectedInst=i;renderInstGrid();updateSubmitState();
-      playSynth(i,midiToFreq(Math.round(sliderMidi)),.6);
-    };
-    grid.appendChild(btn);
-  });
-}
-
-function updateSliderUI(){
-  const pct=(sliderMidi-MIDI_MIN)/MIDI_RANGE;
-  document.getElementById('sliderThumb').style.left=(pct*100)+'%';
-  const rounded=Math.round(sliderMidi);
-  document.getElementById('noteDisp').textContent=midiToName(rounded);
-  document.getElementById('freqDisp').textContent=midiToFreq(rounded).toFixed(1)+' Hz';
-  document.getElementById('noteDisp').style.color=`hsl(${pct*300},80%,70%)`;
-}
-
-function updateSubmitState(){
-  document.getElementById('submitBtn').disabled=selectedInst<0||gameFinished;
-}
-
-function setGameEnabled(enabled){
-  document.getElementById('previewBtn').disabled=!enabled;
-  if(!enabled){document.getElementById('submitBtn').disabled=true;
-    ['instCard','pitchCard'].forEach(id=>document.getElementById(id).style.opacity='.45');
-  } else {
-    ['instCard','pitchCard'].forEach(id=>document.getElementById(id).style.opacity='1');
-  }
-  updateListenUI();
-}
-
-// -- Slider interaction --
-let dragging=false;
-function sliderFromEvent(e){
-  const rect=document.getElementById('sliderTrack').getBoundingClientRect();
-  const cx=e.touches?e.touches[0].clientX:e.clientX;
-  let pct=Math.max(0,Math.min(1,(cx-rect.left)/rect.width));
-  sliderMidi=MIDI_MIN+pct*MIDI_RANGE;
-  updateSliderUI();
-}
-document.getElementById('sliderTrack').addEventListener('mousedown',e=>{dragging=true;sliderFromEvent(e)});
-document.getElementById('sliderTrack').addEventListener('touchstart',e=>{dragging=true;sliderFromEvent(e)},{passive:true});
-document.addEventListener('mousemove',e=>{if(dragging)sliderFromEvent(e)});
-document.addEventListener('touchmove',e=>{if(dragging)sliderFromEvent(e)},{passive:true});
-document.addEventListener('mouseup',()=>dragging=false);
-document.addEventListener('touchend',()=>dragging=false);
-
-// -- Listen system: user-tap triggered, plays 2x then 1 replay --
-const REPLAY_LIMIT = 1;
-
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+function navigate(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const t=document.getElementById('page-'+id);if(t)t.classList.add('active');if(id==='leaderboard')renderLb('today');}
+function showNameModal(){document.getElementById('nameInput').value=playerName;document.getElementById('nameModal').classList.add('active')}
+function saveName(){const v=document.getElementById('nameInput').value.trim();if(v){playerName=v;localStorage.setItem('fq_name',v);updatePlayerTag();closeModal('nameModal');}}
+function updatePlayerTag(){document.getElementById('playerName').textContent=playerName||'Set Name';document.getElementById('playerAvatar').textContent=playerName?playerName[0].toUpperCase():'?';}
+function closeModal(id){document.getElementById(id).classList.remove('active')}
+function showHelp(){document.getElementById('helpModal').classList.add('active')}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
 async function showCountdown(){
   const overlay=document.getElementById('cdOverlay');
   const text=document.getElementById('cdText');
   overlay.classList.add('active');
-  const steps=['Ready','Listen'];
-  for(const word of steps){
-    text.textContent=word;
-    text.style.animation='none';
-    text.offsetHeight;
-    text.style.animation='cdPop .5s ease';
+  for(const word of ['Ready','Listen']){
+    text.textContent=word;text.style.animation='none';text.offsetHeight;text.style.animation='cdPop .5s ease';
     await sleep(1000);
   }
   overlay.classList.remove('active');
 }
 
+// ============================================================
+// Game Start
+// ============================================================
+function startDaily(){
+  if(!playerName){showNameModal();showToast('Set your name first!');return;}
+  currentMode='daily';gameRounds=generateRounds(hashStr(TODAY));
+  const restored=loadDaily();
+  if(!restored){currentRound=0;roundResults=[];gameFinished=false;}
+  initGame();navigate('game');
+  if(gameFinished)setTimeout(()=>showResult(roundResults.reduce((a,r)=>a+r.total,0)),400);
+}
+function startPractice(){
+  currentMode='practice';gameRounds=generateRounds(Date.now());
+  currentRound=0;roundResults=[];gameFinished=false;
+  initGame();navigate('game');
+}
+function playChallenge(seed){
+  if(!playerName){showNameModal();showToast('Set your name first!');return;}
+  currentMode='vs';vsSeed=seed;gameRounds=generateRounds(seed);
+  currentRound=0;roundResults=[];gameFinished=false;
+  initGame();navigate('game');
+}
+function createChallenge(){
+  generatedSeed=hashStr(TODAY+'-'+Date.now()+'-'+Math.random());
+  document.getElementById('generatedCode').textContent=seedToCode(generatedSeed);
+  document.getElementById('generatedCodeCard').style.display='';
+}
+function copyCode(){navigator.clipboard.writeText(document.getElementById('generatedCode').textContent).then(()=>showToast('Copied!'))}
+function joinChallenge(){const c=document.getElementById('joinCodeInput').value.trim().toUpperCase();if(c.length<4){showToast('Enter a valid code');return;}vsSeed=codeToSeed(c);playChallenge(vsSeed);}
+function confirmExit(){stopLiveSynth();if(gameFinished||currentMode==='practice'||roundResults.length===0){navigate('home');return;}if(confirm('Leave? Daily progress is saved.')){navigate('home');}}
+
+// ============================================================
+// Game UI
+// ============================================================
+function initGame(){
+  document.getElementById('gameModeLabel').textContent={daily:'Daily Challenge',practice:'Practice Mode',vs:'Challenge Match'}[currentMode];
+  document.getElementById('gameDateLabel').textContent=currentMode==='daily'?' -- '+TODAY:'';
+  document.getElementById('vsStatusBar').style.display=currentMode==='vs'?'':'none';
+  if(currentMode==='vs'){
+    document.getElementById('vsP1Name').textContent=playerName||'You';
+    document.getElementById('vsP1Score').textContent='0';
+    const code=seedToCode(vsSeed);const vsD=loadVs()[code];
+    const f=vsD?.scores?.find(s=>s.name!==playerName);
+    document.getElementById('vsP2Name').textContent=f?f.name:'Friend';
+    document.getElementById('vsP2Score').textContent=f?f.score:'--';
+  }
+  renderRoundBar();
+  renderFbStrip();
+  if(!gameFinished) initRound();
+  else setGameEnabled(false);
+}
+
+function initRound(){
+  userPitch=0.5; userBright=0.5; userSpace=0.2;
+  hasHeardThisRound=false; replaysLeft=0;
+  updateAllSliderUI();
+  updateListenUI();
+  setGameEnabled(true);
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function renderRoundBar(){
+  const bar=document.getElementById('roundBar');bar.innerHTML='';
+  for(let i=0;i<TOTAL_ROUNDS;i++){
+    const d=document.createElement('div');d.className='r-dot';
+    if(i<roundResults.length){
+      const t=roundResults[i].total;
+      d.className+=' '+(t>=17?'s-perfect':t>=12?'s-great':t>=7?'s-ok':'s-miss');
+      d.textContent=t;
+    }else if(i===currentRound&&!gameFinished){
+      d.className+=' active';d.textContent=i+1;
+    }else{d.textContent=i+1;}
+    bar.appendChild(d);
+  }
+  document.getElementById('roundNum').textContent=Math.min(currentRound+1,TOTAL_ROUNDS);
+}
+
+function setGameEnabled(en){
+  document.getElementById('sliderCard').style.opacity=en?'1':'.45';
+  document.getElementById('sliderCard').style.pointerEvents=en?'':'none';
+  updateListenUI();
+}
+
+// ============================================================
+// Slider Interaction (with live audio)
+// ============================================================
+function getUserMidi(){ return Math.round(MIDI_MIN + userPitch * MIDI_RANGE); }
+
+function updateAllSliderUI(){
+  document.getElementById('thumbPitch').style.left = (userPitch * 100) + '%';
+  document.getElementById('pitchVal').textContent = midiToName(getUserMidi());
+  document.getElementById('thumbBright').style.left = (userBright * 100) + '%';
+  document.getElementById('brightVal').textContent = Math.round(userBright * 100) + '%';
+  document.getElementById('thumbSpace').style.left = (userSpace * 100) + '%';
+  document.getElementById('spaceVal').textContent = Math.round(userSpace * 100) + '%';
+}
+
+function sliderPctFromEvent(trackEl, e){
+  const rect = trackEl.getBoundingClientRect();
+  const cx = e.touches ? e.touches[0].clientX : e.clientX;
+  return Math.max(0, Math.min(1, (cx - rect.left) / rect.width));
+}
+
+// Setup slider interactions
+['Pitch','Bright','Space'].forEach(name => {
+  const track = document.getElementById('track' + name);
+
+  function onStart(e){
+    if(gameFinished) return;
+    getCtx(); // ensure audio context on gesture
+    isDragging = true;
+    activeSlider = name;
+    onMove(e);
+    // Start live synth
+    startLiveSynth(getUserMidi(), userBright, userSpace);
+    document.getElementById('soundIndicator').classList.remove('hidden');
+  }
+
+  function onMove(e){
+    if(!isDragging || activeSlider !== name) return;
+    const pct = sliderPctFromEvent(track, e);
+    if(name === 'Pitch') userPitch = pct;
+    else if(name === 'Bright') userBright = pct;
+    else userSpace = pct;
+    updateAllSliderUI();
+    if(liveSynth) updateLiveSynth(getUserMidi(), userBright, userSpace);
+  }
+
+  track.addEventListener('mousedown', onStart);
+  track.addEventListener('touchstart', onStart, {passive: true});
+  track.addEventListener('mousemove', onMove);
+  track.addEventListener('touchmove', onMove, {passive: true});
+});
+
+function onEnd(){
+  if(isDragging){
+    isDragging = false;
+    activeSlider = null;
+    stopLiveSynth();
+    document.getElementById('soundIndicator').classList.add('hidden');
+  }
+}
+document.addEventListener('mouseup', onEnd);
+document.addEventListener('touchend', onEnd);
+document.addEventListener('touchcancel', onEnd);
+
+// ============================================================
+// Listen System
+// ============================================================
 function updateListenUI(){
   const btn=document.getElementById('playTarget');
   const status=document.getElementById('listenStatus');
   const hint=document.getElementById('listenHint');
-  if(gameFinished){
-    btn.disabled=true;status.textContent='Game over';hint.textContent='';return;
-  }
-  if(isAutoPlaying){
-    btn.disabled=true;status.textContent='Listen carefully...';hint.textContent='Playing 2 times';return;
-  }
+  if(gameFinished){btn.disabled=true;status.textContent='Game over';hint.textContent='';return;}
+  if(isPlaying){btn.disabled=true;status.textContent='Listen carefully...';hint.textContent='Playing...';return;}
   if(!hasHeardThisRound){
-    btn.disabled=false;
-    status.textContent='Tap to listen';
-    hint.textContent='Plays 2x, then 1 replay';
-  } else if(replaysLeft>0){
-    btn.disabled=false;
-    status.textContent=`${replaysLeft} replay left`;
-    hint.textContent='Tap to hear it once more';
-  } else {
-    btn.disabled=true;
-    status.textContent='No replays left';
-    hint.textContent='Trust your memory!';
+    btn.disabled=false;status.textContent='Tap to listen';hint.textContent='Plays 2x, then 1 replay';
+  }else if(replaysLeft>0){
+    btn.disabled=false;status.textContent=`${replaysLeft} replay left`;hint.textContent='Tap to hear it once more';
+  }else{
+    btn.disabled=true;status.textContent='No replays left';hint.textContent='Trust your ears!';
   }
 }
 
-document.getElementById('playTarget').addEventListener('click',async()=>{
-  if(gameFinished||isAutoPlaying)return;
-  // Ensure AudioContext is active (Safari requires user gesture)
+document.getElementById('playTarget').addEventListener('click', async()=>{
+  if(gameFinished||isPlaying) return;
   getCtx();
-  const r=gameRounds[currentRound];
-  const btn=document.getElementById('playTarget');
+  const target = gameRounds[currentRound];
+  const btn = document.getElementById('playTarget');
 
   if(!hasHeardThisRound){
-    // First listen: countdown then play 2 times
-    isAutoPlaying=true;
-    btn.disabled=true;
-    await showCountdown();
-    for(let rep=0;rep<2;rep++){
-      btn.classList.add('playing');
-      playSynth(r.instIdx,midiToFreq(r.midi),1.2);
-      await sleep(1400);
-      btn.classList.remove('playing');
-      if(rep<1) await sleep(600);
-    }
-    isAutoPlaying=false;
-    hasHeardThisRound=true;
-    replaysLeft=REPLAY_LIMIT;
-    updateListenUI();
-  } else if(replaysLeft>0){
-    // Replay: countdown then play
-    replaysLeft--;
-    btn.disabled=true;
+    isPlaying=true; btn.disabled=true; updateListenUI();
     await showCountdown();
     btn.classList.add('playing');
-    playSynth(r.instIdx,midiToFreq(r.midi),1.2);
-    setTimeout(()=>{btn.classList.remove('playing');updateListenUI();},1200);
+    for(let rep=0;rep<2;rep++){
+      playFixed(target.pitch, target.brightness, target.space, 2);
+      await sleep(2200);
+      if(rep<1) await sleep(400);
+    }
+    btn.classList.remove('playing');
+    isPlaying=false; hasHeardThisRound=true; replaysLeft=1;
+    updateListenUI();
+  }else if(replaysLeft>0){
+    replaysLeft--;
+    isPlaying=true; updateListenUI();
+    await showCountdown();
+    btn.classList.add('playing');
+    playFixed(target.pitch, target.brightness, target.space, 2);
+    await sleep(2200);
+    btn.classList.remove('playing');
+    isPlaying=false; updateListenUI();
   }
 });
 
-// -- Preview --
-document.getElementById('previewBtn').addEventListener('click',()=>{
-  if(selectedInst<0||gameFinished)return;
-  playSynth(selectedInst,midiToFreq(Math.round(sliderMidi)),1);
-});
+// ============================================================
+// Submit & Scoring
+// ============================================================
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  if(gameFinished) return;
+  stopLiveSynth();
 
-// -- Submit --
-document.getElementById('submitBtn').addEventListener('click',()=>{
-  if(selectedInst<0||gameFinished)return;
-  const target=gameRounds[currentRound];
-  const guessMidi=Math.round(sliderMidi);
-  const semiDiff=Math.abs(guessMidi-target.midi);
-  const instOk=selectedInst===target.instIdx;
-  const instScore=instOk?10:0;
-  const pitchScore=Math.max(0,Math.round(10*(1-semiDiff/12)));
-  const total=instScore+pitchScore;
+  const target = gameRounds[currentRound];
+  const guessMidi = getUserMidi();
+  const semiDiff = Math.abs(guessMidi - target.pitch);
+  const brightDiff = Math.abs(userBright - target.brightness);
+  const spaceDiff = Math.abs(userSpace - target.space);
 
-  const res={instCorrect:instOk,semitoneDiff:semiDiff,instScore,pitchScore,total,
-    guessInst:selectedInst,guessMidi,targetInst:target.instIdx,targetMidi:target.midi};
+  // Score each dimension 0-7 (21 max, we cap at 20)
+  const pitchScore = Math.max(0, Math.round(7 * (1 - semiDiff / 12)));
+  const brightScore = Math.max(0, Math.round(7 * (1 - brightDiff / 0.5)));
+  const spaceScore = Math.max(0, Math.round(7 * (1 - spaceDiff / 0.5)));
+  const total = Math.min(20, pitchScore + brightScore + spaceScore);
+
+  const res = {
+    total, pitchScore, brightScore, spaceScore,
+    guessPitch: guessMidi, targetPitch: target.pitch, semiDiff,
+    guessBright: userBright, targetBright: target.brightness,
+    guessSpace: userSpace, targetSpace: target.space,
+  };
   roundResults.push(res);
-  renderFbStrip();
 
   currentRound++;
-  if(currentRound>=TOTAL_ROUNDS){
-    gameFinished=true;
-    const totalScore=roundResults.reduce((a,r)=>a+r.total,0);
-    if(currentMode==='daily'){saveDaily();recordDailyScore(totalScore);}
-    if(currentMode==='vs'){saveVsResult(seedToCode(vsSeed),totalScore,playerName);}
+  if(currentRound >= TOTAL_ROUNDS){
+    gameFinished = true;
+    const totalScore = roundResults.reduce((a,r) => a + r.total, 0);
+    if(currentMode === 'daily'){ saveDaily(); recordScore(totalScore); }
+    if(currentMode === 'vs'){ saveVsResult(seedToCode(vsSeed), totalScore, playerName); }
     setGameEnabled(false);
-    setTimeout(()=>showResult(totalScore),500);
-  } else {
-    selectedInst=-1;sliderMidi=(MIDI_MIN+MIDI_MAX)/2;
-    replaysLeft=0;hasHeardThisRound=false;
-    if(currentMode==='daily')saveDaily();
+    setTimeout(() => showResult(totalScore), 500);
+  }else{
+    if(currentMode === 'daily') saveDaily();
+    initRound();
   }
-  renderRoundBar();renderInstGrid();updateSliderUI();updateSubmitState();updateListenUI();
+  renderRoundBar();
+  renderFbStrip();
 
-  if(currentMode==='vs'){
-    document.getElementById('vsP1Score').textContent=roundResults.reduce((a,r)=>a+r.total,0);
+  if(currentMode === 'vs'){
+    document.getElementById('vsP1Score').textContent = roundResults.reduce((a,r) => a + r.total, 0);
   }
 });
 
+function recordScore(score){
+  const st=loadStats();
+  if(st.history.find(h=>h.date===TODAY)) return;
+  st.played++;st.totalScore+=score;st.best=Math.max(st.best,score);
+  st.history.push({date:TODAY,score});saveStats(st);
+}
+
+// ============================================================
+// Feedback Strip
+// ============================================================
 function renderFbStrip(){
   const strip=document.getElementById('fbStrip');
   strip.innerHTML='';
@@ -1141,20 +1046,15 @@ function renderFbStrip(){
     const chip=document.createElement('div');
     if(i<roundResults.length){
       const res=roundResults[i];
-      const tier=res.total>=18?'perfect':res.total>=12?'great':res.total>=6?'ok':'miss';
+      const tier=res.total>=17?'perfect':res.total>=12?'great':res.total>=7?'ok':'miss';
       chip.className=`fb-chip tier-${tier}`;
       chip.innerHTML=`<span class="chip-round">R${i+1}</span><span class="chip-score">${res.total}</span>`;
-      // Tooltip with details
-      const instTip=res.instCorrect?INSTRUMENTS[res.targetInst].name:
-        `${INSTRUMENTS[res.guessInst].name} > ${INSTRUMENTS[res.targetInst].name}`;
-      const pitchTip=res.semitoneDiff===0?midiToName(res.targetMidi):
-        `${midiToName(res.guessMidi)} > ${midiToName(res.targetMidi)} (${res.semitoneDiff}st)`;
-      chip.innerHTML+=`<div class="fb-tooltip">${instTip} | ${pitchTip}</div>`;
+      const tip=`Pitch:${res.pitchScore} Bright:${res.brightScore} Space:${res.spaceScore}`;
+      chip.innerHTML+=`<div class="fb-tooltip">${tip}</div>`;
       chip.addEventListener('click',()=>{
-        // Toggle tooltip
         document.querySelectorAll('.fb-chip.show-tip').forEach(c=>{if(c!==chip)c.classList.remove('show-tip');});
         chip.classList.toggle('show-tip');
-        playSynth(res.targetInst,midiToFreq(res.targetMidi),1);
+        playFixed(res.targetPitch, res.targetBright, res.targetSpace, 1.5);
       });
     }else{
       chip.className='fb-chip empty';
@@ -1165,67 +1065,45 @@ function renderFbStrip(){
 }
 
 // ============================================================
-// Results & Stats
+// Result Modal
 // ============================================================
-function recordDailyScore(score){
-  const st=loadStats();
-  // Prevent double recording
-  if(st.history.find(h=>h.date===TODAY))return;
-  st.played++;st.totalScore+=score;
-  st.best=Math.max(st.best,score);
-  st.history.push({date:TODAY,score});
-  saveStats(st);
-}
-
 function showResult(score){
   const st=loadStats();
-  document.getElementById('resTitle').textContent=
-    score>=90?'Perfect Ear!':score>=70?'Great Hearing!':score>=50?'Not Bad!':'Keep Practicing!';
-  document.getElementById('resSub').textContent=
-    currentMode==='daily'?`Daily Challenge -- ${TODAY}`:
-    currentMode==='vs'?'Challenge Match':
-    'Practice Mode';
-
+  document.getElementById('resTitle').textContent=score>=85?'Golden Ears!':score>=65?'Great Hearing!':score>=45?'Getting There!':'Keep Practicing!';
+  document.getElementById('resSub').textContent=currentMode==='daily'?`Daily -- ${TODAY}`:currentMode==='vs'?'Challenge Match':'Practice';
   document.getElementById('scoreFinal').textContent=score;
   document.getElementById('stPlayed').textContent=st.played;
   document.getElementById('stAvg').textContent=st.played?Math.round(st.totalScore/st.played):0;
   document.getElementById('stBest').textContent=st.best;
-
-  // Ring animation
-  const fg=document.getElementById('ringFg');
-  const color=score>=80?'var(--success)':score>=50?'var(--warning)':'var(--error)';
-  fg.style.stroke=color;fg.style.strokeDashoffset='314';
-  requestAnimationFrame(()=>{fg.style.strokeDashoffset=314*(1-score/100);});
-
-  // Show/hide sections
   document.getElementById('resultStats').style.display=currentMode==='practice'?'none':'';
   document.getElementById('countdown').style.display=currentMode==='daily'?'':'none';
 
-  // VS result
   const vsBlock=document.getElementById('vsResultBlock');
   if(currentMode==='vs'){
     vsBlock.style.display='';
     document.getElementById('vrP1').textContent=playerName||'You';
     document.getElementById('vrS1').textContent=score;
-    const code=seedToCode(vsSeed);
-    const vsData=loadVsResults()[code];
-    const friend=vsData?.scores?.find(s=>s.name!==playerName);
-    document.getElementById('vrP2').textContent=friend?friend.name:'Waiting...';
-    document.getElementById('vrS2').textContent=friend?friend.score:'--';
-  } else {
-    vsBlock.style.display='none';
-  }
+    const code=seedToCode(vsSeed);const vsD=loadVs()[code];
+    const f=vsD?.scores?.find(s=>s.name!==playerName);
+    document.getElementById('vrP2').textContent=f?f.name:'Waiting...';
+    document.getElementById('vrS2').textContent=f?f.score:'--';
+  }else{ vsBlock.style.display='none'; }
+
+  const fg=document.getElementById('ringFg');
+  fg.style.stroke=score>=80?'var(--success)':score>=50?'var(--warning)':'var(--error)';
+  fg.style.strokeDashoffset='314';
+  requestAnimationFrame(()=>{fg.style.strokeDashoffset=314*(1-score/100);});
 
   document.getElementById('resultModal').classList.add('active');
   updateCountdown();
 }
 
-// -- Share --
+// Share
 document.getElementById('shareBtn').addEventListener('click',()=>{
   const total=roundResults.reduce((a,r)=>a+r.total,0);
-  const blocks=roundResults.map(r=>r.total>=18?'\u{1F7E9}':r.total>=12?'\u{1F7E8}':r.total>=6?'\u{1F7E7}':'\u{1F7E5}').join('');
+  const blocks=roundResults.map(r=>r.total>=17?'\u{1F7E9}':r.total>=12?'\u{1F7E8}':r.total>=7?'\u{1F7E7}':'\u{1F7E5}').join('');
   let text=`FreqUno ${currentMode==='daily'?TODAY:'Challenge'}\nScore: ${total}/100\n${blocks}`;
-  if(currentMode==='vs')text+=`\nChallenge code: ${seedToCode(vsSeed)}`;
+  if(currentMode==='vs')text+=`\nCode: ${seedToCode(vsSeed)}`;
   text+='\n\nfrequno.io';
   navigator.clipboard.writeText(text).then(()=>showToast('Copied to clipboard!'));
 });
@@ -1233,114 +1111,59 @@ document.getElementById('shareBtn').addEventListener('click',()=>{
 // ============================================================
 // Leaderboard
 // ============================================================
-// Simulated global players seeded by date for realism
 const FAKE_NAMES=['SonicSam','BeatBox42','TuneMaster','EarWorm','PitchPro','NoteNinja',
   'FreqQueen','HzHero','OctaveKing','MelodyAce','WaveRider','SoundSage',
   'ToneHawk','ChordKid','BassLine99','VibeCheck','EchoFox','HarmonyJ',
   'RiffLord','GrooveBot','ScaleStar','TempoTiger','ClefKnight','DecibelDan',
   'AudioAlly','SynthSara','DrumDiva','LoopLucy','MixMax','FaderFinn'];
 
-function generateFakePlayers(dateSeed,count=20){
-  const rng=makeRng(dateSeed);
-  const players=[];
-  const used=new Set();
+function genFakes(seed,count=20){
+  const rng=makeRng(seed);const players=[];const used=new Set();
   for(let i=0;i<count;i++){
-    let nameIdx=Math.floor(rng()*FAKE_NAMES.length);
-    while(used.has(nameIdx))nameIdx=(nameIdx+1)%FAKE_NAMES.length;
-    used.add(nameIdx);
-    // Score distribution: mostly 40-85, few outliers
-    const base=40+Math.floor(rng()*45);
-    const bonus=rng()>.85?Math.floor(rng()*15):0;
-    players.push({name:FAKE_NAMES[nameIdx],score:Math.min(100,base+bonus)});
-  }
-  return players;
+    let ni=Math.floor(rng()*FAKE_NAMES.length);while(used.has(ni))ni=(ni+1)%FAKE_NAMES.length;used.add(ni);
+    const base=40+Math.floor(rng()*45);const bonus=rng()>.85?Math.floor(rng()*15):0;
+    players.push({name:FAKE_NAMES[ni],score:Math.min(100,base+bonus)});
+  }return players;
 }
 
-function renderLeaderboard(tab){
+function renderLb(tab){
   const list=document.getElementById('lbList');list.innerHTML='';
-  let entries=[];
-  const st=loadStats();
-
+  let entries=[];const st=loadStats();
   if(tab==='today'){
-    const fakes=generateFakePlayers(hashStr(TODAY),20);
-    // Add real player if they played today
-    const todayScore=st.history.find(h=>h.date===TODAY);
-    if(todayScore) fakes.push({name:playerName||'You',score:todayScore.score,isMe:true});
+    const fakes=genFakes(hashStr(TODAY),20);
+    const ts=st.history.find(h=>h.date===TODAY);
+    if(ts)fakes.push({name:playerName||'You',score:ts.score,isMe:true});
     entries=fakes.sort((a,b)=>b.score-a.score);
-  } else if(tab==='week'){
-    // Last 7 days combined
-    const now=new Date();
-    let allEntries=[];
-    for(let d=0;d<7;d++){
-      const dt=new Date(now);dt.setDate(dt.getDate()-d);
+  }else if(tab==='week'){
+    const now=new Date();let all=[];
+    for(let d=0;d<7;d++){const dt=new Date(now);dt.setDate(dt.getDate()-d);
       const ds=`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
-      const fakes=generateFakePlayers(hashStr(ds),8);
-      allEntries.push(...fakes);
-    }
-    // Aggregate by name (best score)
-    const map={};
-    allEntries.forEach(e=>{
-      if(!map[e.name]||e.score>map[e.name].score)map[e.name]={...e};
-    });
-    // Add player's best this week
-    const weekScores=st.history.filter(h=>{
-      const hd=new Date(h.date);return(now-hd)<7*86400000;
-    });
-    if(weekScores.length){
-      const best=Math.max(...weekScores.map(s=>s.score));
-      map[playerName||'You']={name:playerName||'You',score:best,isMe:true};
-    }
+      all.push(...genFakes(hashStr(ds),8));}
+    const map={};all.forEach(e=>{if(!map[e.name]||e.score>map[e.name].score)map[e.name]={...e};});
+    const ws=st.history.filter(h=>{const hd=new Date(h.date);return(now-hd)<7*864e5;});
+    if(ws.length){const best=Math.max(...ws.map(s=>s.score));map[playerName||'You']={name:playerName||'You',score:best,isMe:true};}
     entries=Object.values(map).sort((a,b)=>b.score-a.score).slice(0,25);
-  } else {
-    // All time
-    const fakes=generateFakePlayers(hashStr('alltime-v2'),25);
-    // Inflate scores for all time
+  }else{
+    const fakes=genFakes(hashStr('fq2-alltime'),25);
     fakes.forEach(f=>f.score=Math.min(100,f.score+Math.floor(Math.random()*10)));
-    if(st.best>0) fakes.push({name:playerName||'You',score:st.best,isMe:true});
+    if(st.best>0)fakes.push({name:playerName||'You',score:st.best,isMe:true});
     entries=fakes.sort((a,b)=>b.score-a.score);
   }
-
-  entries.slice(0,25).forEach((entry,i)=>{
-    const row=document.createElement('div');
-    row.className='lb-row'+(entry.isMe?' me':'');
-    const rankClass=i===0?'gold':i===1?'silver':i===2?'bronze':'normal';
-    row.innerHTML=`
-      <div class="lb-rank ${rankClass}">${i+1}</div>
-      <div class="lb-info">
-        <div class="lb-name">${entry.name}${entry.isMe?' (You)':''}</div>
-      </div>
-      <div class="lb-pts">${entry.score}</div>
-    `;
+  entries.slice(0,25).forEach((e,i)=>{
+    const row=document.createElement('div');row.className='lb-row'+(e.isMe?' me':'');
+    const rc=i===0?'gold':i===1?'silver':i===2?'bronze':'normal';
+    row.innerHTML=`<div class="lb-rank ${rc}">${i+1}</div><div class="lb-info"><div class="lb-name">${e.name}${e.isMe?' (You)':''}</div></div><div class="lb-pts">${e.score}</div>`;
     list.appendChild(row);
   });
-
-  if(entries.length===0){
-    list.innerHTML='<div style="text-align:center;color:var(--text-dim);padding:24px;font-size:.85rem">No scores yet. Play a Daily Challenge!</div>';
-  }
+  if(!entries.length) list.innerHTML='<div style="text-align:center;color:var(--text-dim);padding:24px;font-size:.85rem">No scores yet!</div>';
 }
-
-function switchLbTab(tab,btn){
-  document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  renderLeaderboard(tab);
-}
+function switchLbTab(tab,btn){document.querySelectorAll('.lb-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');renderLb(tab);}
 
 // ============================================================
-// Utilities
+// Misc
 // ============================================================
-function closeModal(id){document.getElementById(id).classList.remove('active')}
-function showHelp(){document.getElementById('helpModal').classList.add('active')}
-
-// Close modals on overlay click
-['resultModal','nameModal','helpModal'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',e=>{
-    if(e.target.id===id)closeModal(id);
-  });
-});
-
 function updateCountdown(){
-  const now=new Date();
-  const tmr=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+  const now=new Date();const tmr=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
   const d=tmr-now;
   const h=String(Math.floor(d/36e5)).padStart(2,'0');
   const m=String(Math.floor((d%36e5)/6e4)).padStart(2,'0');
@@ -1350,34 +1173,19 @@ function updateCountdown(){
 }
 setInterval(updateCountdown,1000);
 
-function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);
-}
-
-// -- Check URL for challenge code --
-function checkUrlChallenge(){
-  const params=new URLSearchParams(window.location.search);
-  const code=params.get('c');
-  if(code){
-    const seed=codeToSeed(code.toUpperCase());
-    if(seed){
-      if(!playerName){showNameModal();showToast('Set your name to join!');return;}
-      vsSeed=seed;playChallenge(seed);
-    }
-  }
-}
+['resultModal','nameModal','helpModal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target.id===id)closeModal(id);});
+});
 
 // ============================================================
 // Init
 // ============================================================
 function init(){
   updatePlayerTag();
-  if(!playerName){
-    // Show name modal on first visit
-    setTimeout(()=>{showNameModal();showHelp();},300);
-  }
-  checkUrlChallenge();
+  if(!playerName) setTimeout(()=>{showNameModal();showHelp();},300);
+  const params=new URLSearchParams(window.location.search);
+  const c=params.get('c');
+  if(c){const seed=codeToSeed(c.toUpperCase());if(seed){if(!playerName){showNameModal();return;}vsSeed=seed;playChallenge(seed);}}
 }
 init();
 </script>
